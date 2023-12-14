@@ -1,18 +1,13 @@
-# koishi-plugin-blockly
+# koishi-plugin-blockly-null
 
-[![npm](https://img.shields.io/npm/v/koishi-plugin-blockly)](https://www.npmjs.com/package/koishi-plugin-blockly)
-![Download](https://img.shields.io/npm/dm/koishi-plugin-openchat?style=round)
-[![Install Size](https://packagephobia.com/badge?p=koishi-plugin-blockly)](https://packagephobia.com/result?p=koishi-plugin-blockly)
-[![Package Quality](https://packagequality.com/shield/koishi-plugin-blockly.svg)](https://packagequality.com/#?package=koishi-plugin-blockly)
-[![Koishi](https://badge.koishi.chat/rating/koishi-plugin-blockly?style=round)](https://koishi.chat)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkoishijs%2Fkoishi-plugin-blockly.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkoishijs%2Fkoishi-plugin-blockly?ref=badge_shield)
 
-使用 Blockly 在你的 Koishi 里进行可视化编程!
+koishi-plugin-Blockly的fork版,暂时和原版一模一样
 
 Use blockly plugin to programming with blocks and no-code needed!
 
 ## 如何使用? How to use it?
-在 Koishi 市场中搜索"Blockly"，安装并启用插件即可。
+<!-- 在 Koishi 市场中搜索"Blockly-null"，安装并启用插件即可。 -->
+还安不上✔️
 
 插件的页面在控制台左侧的"Blockly 可视化编程"页面中
 
