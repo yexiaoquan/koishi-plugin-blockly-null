@@ -478,8 +478,8 @@
       <block type="type_object"/>
     </category>
   </category>
-  <category name="第三方">
-    <category name="空白块"/>
+  <category name="第三方" colour="#5b80a5">
       <block type="null"/>
+      <block type="null1"/>
   </category>
 </xml>
