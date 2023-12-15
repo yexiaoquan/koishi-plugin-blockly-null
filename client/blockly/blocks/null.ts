@@ -16,8 +16,16 @@ export const blockly_null = {
     "helpUrl": ""
 
 }
-export function blockly_null_Generator(block){
+export function blockly_nullBlockGenerator(block){
   let text_name = block.getFieldValue('NAME');
   let code = `${text_name}\n`;
   return code;
 };
+
+export const nullBlocks = [
+  blockly_null
+]
+
+export const nullBlockGenerators = {
+  'delete_message':blockly_nullBlockGenerator
+}

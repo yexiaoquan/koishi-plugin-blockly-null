@@ -479,6 +479,7 @@
     </category>
   </category>
   <category name="第三方">
-    <category name="未分类" custom="VENDOR_UNCATEGORIZED"/>
+    <category name="空白块"/>
+      <block type="null"/>
   </category>
 </xml>

@@ -12,7 +12,7 @@ import {messageBlocks, MessageBlocks} from "./message";
 import {segmentBlockGenerators, SegmentBlocks} from "./segment";
 import {numberBlockGenerators, NumberBlocks} from "./number";
 import {TypeBlocks} from "./typing";
-import { blockly_null } from "./null";
+import { blockly_null, nullBlockGenerators, nullBlocks } from "./null";
 
 export const Blocks = [
   ...LogicalBlocks,
@@ -27,7 +27,8 @@ export const Blocks = [
   ...EnvironmentBlocks,
   ...ParameterBlocks,
   ...NumberBlocks,
-  ...TypeBlocks
+  ...TypeBlocks,
+  ...nullBlocks
 ]
 
 export const BlockGenerators=Object.assign({},...[
@@ -41,5 +42,6 @@ export const BlockGenerators=Object.assign({},...[
   botBlockGenerators,
   debugBlockGenerators,
   environmentBlockGenerators,
-  numberBlockGenerators
+  numberBlockGenerators,
+  nullBlockGenerators
 ])
