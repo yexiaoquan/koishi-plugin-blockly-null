@@ -12,7 +12,7 @@ import {messageBlocks, MessageBlocks} from "./message";
 import {segmentBlockGenerators, SegmentBlocks} from "./segment";
 import {numberBlockGenerators, NumberBlocks} from "./number";
 import {TypeBlocks} from "./typing";
-import { blockly_null, nullBlockGenerators, nullBlocks } from "./null";
+import {nullBlockGenerators, nullBlocks } from "./null";
 
 export const Blocks = [
   ...LogicalBlocks,
