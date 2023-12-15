@@ -19,8 +19,5 @@ The page of the plugin is in the "Blockly" page in the left bar of the console.
 暂未完善
 
 
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkoishijs%2Fkoishi-plugin-blockly.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkoishijs%2Fkoishi-plugin-blockly?ref=badge_large)
-
 ## 沐辰佬的坏话
 logier说沐佬很菜
