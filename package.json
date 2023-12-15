@@ -6,7 +6,7 @@
   "typings": "lib/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/koishijs/koishi-plugin-blockly.git"
+    "url": "https://github.com/yexiaoquan/koishi-plugin-blockly-null"
   },
   "homepage": "https://blockly.koishi.chat",
   "files": [
