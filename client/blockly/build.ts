@@ -4,15 +4,41 @@ import {deduplicate} from "cosmokit"
 import {Workspace} from "blockly";
 import {Dict, } from "cosmokit";
 import {TemplateCodes} from "./template";
-export function createWrapper(imports:Dict<any>,name="",using=[],apply=""){
-  return [...Object.entries(imports)].map(([i,j])=>
-      `import { ${j.join(', ')} } from "${i}"\n`
-    ).join("")+
-    WrapperTemplate
-    .replace(/\{\{name}}/g,name.replace(/"/g,"\\\"").replace(/\\/g,"\\\\"))
-    .replace(/\{\{using}}/g,JSON.stringify(using))
-    .replace(/\{\{apply}}/g,apply.split("\n").map(t=>"  "+t).join("\n"))
+
+export function createWrapper(imports:Dict<any>, name="", using=[], apply=""){  
+  let result = [...Object.entries(imports)].map(([i,j])=>  
+      `import { ${j.join(', ')} } from "${i}"\n`  
+    ).join("") +  
+    WrapperTemplate  
+    .replace(/\{\{name}}/g, name.replace(/"/g,"\\\"").replace(/\\/g,"\\\\"))  
+    .replace(/\{\{using}}/g, JSON.stringify(using))  
+    .replace(/\{\{apply}}/g, apply.split("\n").map(t=>"  "+t).join("\n"));  
+  
+  // 删除 export const using = [] 字段  
+  result = result.replace(/export const using = \[\];?/, '');  
+  
+  return result;  
 }
+
+export function moveImportToFront(text: string): string {  
+  const lines: string[] = text.split('\n');  
+  const importLines: string[] = [];  
+  const otherLines: string[] = [];  
+  
+  for (const line of lines) {  
+    if (line.includes('import')) {  
+      // 移除行开头的空格  
+      const trimmedLine = line.trim();  
+      importLines.push(trimmedLine);  
+    } else {  
+      otherLines.push(line);  
+    }  
+  }  
+  
+  const sortedText: string = importLines.concat(otherLines).join('\n');  
+  return sortedText;  
+}
+
 export function build(name,plugin_id,workspace:Workspace){
   let currentImportMap = {}
   const blocks = workspace.getAllBlocks(false)
@@ -29,5 +55,6 @@ export function build(name,plugin_id,workspace:Workspace){
     })
   })
 
-  return createWrapper(currentImportMap,name,[],templates.map(t=>TemplateCodes[t]+"\n").map(t=>t.replace('{{name}}',name).replace("{{plugin_id}}",plugin_id)).join("")+javascriptGenerator.workspaceToCode(workspace))
+  let a = createWrapper(currentImportMap,name,[],templates.map(t=>TemplateCodes[t]+"\n").map(t=>t.replace('{{name}}',name).replace("{{plugin_id}}",plugin_id)).join("")+javascriptGenerator.workspaceToCode(workspace))
+  return moveImportToFront(a)
 }
