@@ -68,7 +68,7 @@ export const blockly_null2 = {
 
 export function blockly_null2BlockGenerator(block) {
   let text_name = block.getFieldValue('NAME');
-  let code = `${text_name}\n`;
+  let code = `${text_name}`;
   return [code,javascriptGenerator.ORDER_NONE];
 };
 
