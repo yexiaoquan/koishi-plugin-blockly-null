@@ -42,7 +42,7 @@ export const blockly_null1 = {
 
 }
 
-export function blockly_null1BlockGenerator(block, generator) {
+export function blockly_null1BlockGenerator(block) {
   let text_name = block.getFieldValue('NAME');
   let code = `${text_name}\n`;
   return code;
