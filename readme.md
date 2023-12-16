@@ -1,7 +1,7 @@
 # koishi-plugin-blockly-null
 
 
-koishi-plugin-Blockly的fork版,暂时就添加了三个空白快
+koishi-plugin-Blockly的fork版,多了一些注入块用来注入
 
 
 ## 如何使用? How to use it?
