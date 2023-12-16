@@ -32,17 +32,17 @@ export function import_0BlockGenerators(block) {
 export const export_const ={
 
   "type": "export_const",
-  "message0": "export const %1 = { %2 }",
+  "message0": "export const %1 = %2 ",
   "args0": [
     {
       "type": "field_input",
       "name": "NAME",
-      "text": "a"
+      "text": "inject"
     },
     {
       "type": "field_input",
       "name": "NAME1",
-      "text": "b"
+      "text": "[]"
     }
   ],
   "colour": 330,
@@ -54,7 +54,7 @@ export function export_constBlockGenerators(block) {
   let text_name = block.getFieldValue('NAME');
   let text_name1 = block.getFieldValue('NAME1');
   // TODO: Assemble javascript into code variable.
-  let code = `export const ${text_name} = { ${text_name1} };\n`;
+  let code = `export const ${text_name} = ${text_name1} ;\n`;
   return code;
 };
 
