@@ -39,7 +39,7 @@
       "dist"
     ],
     "description": {
-      "zh": "Blockly的fork版,多了两个空白块用来注入"
+      "zh": "Blockly的fork版,多了三个空白块用来注入"
     }
   },
   "peerDependencies": {
