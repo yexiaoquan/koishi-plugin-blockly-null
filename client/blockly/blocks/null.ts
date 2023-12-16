@@ -1,5 +1,5 @@
-import { NAME_SPACE } from "blockly/core/utils/xml";
-import {javascriptGenerator} from "blockly/javascript";
+
+
 export const blockly_null = {
 
     "type": "null",
