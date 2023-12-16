@@ -26,11 +26,11 @@ export function moveImportToFront(text: string): string {
   const otherLines: string[] = [];  
   
   for (const line of lines) {  
-    if (line.includes('import')) {  
-      // 移除行开头的空格  
-      const trimmedLine = line.trim();  
-      importLines.push(trimmedLine);  
+    if (line.trim().startsWith('import')) {  
+      // 如果行以import开头，去除空格后添加到importLines数组  
+      importLines.push(line.trim().trimLeft()); // 添加trimLeft()去除行开头的空格  
     } else {  
+      // 其他行保持不变，直接添加到otherLines数组  
       otherLines.push(line);  
     }  
   }  
