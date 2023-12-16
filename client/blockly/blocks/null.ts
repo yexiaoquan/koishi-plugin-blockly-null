@@ -1,4 +1,5 @@
-
+import { block } from "blockly/core/tooltip";
+import {javascriptGenerator} from "blockly/javascript";
 
 export const blockly_null = {
 
@@ -48,12 +49,39 @@ export function blockly_null1BlockGenerator(block) {
   return code;
 };
 
+
+export const blockly_null2 = {
+  
+    "type": "null2",
+    "message0": "%1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "NAME",
+        "text": "空白"
+      },
+    ],
+    "output": null,
+    "colour": 230,
+    "tooltip": "",
+    "helpUrl": ""
+  
+}
+
+export function blockly_null2BlockGenerator(block) {
+  let text_name = block.getFieldValue('NAME');
+  let code = `${text_name}\n`;
+  return [code,javascriptGenerator.ORDER_NONE];
+};
+
 export const nullBlocks = [
   blockly_null,
-  blockly_null1
+  blockly_null1,
+  blockly_null2
 ]
 
 export const nullBlockGenerators = {
   'null':blockly_nullBlockGenerator,
-  'null1':blockly_null1BlockGenerator
+  'null1':blockly_null1BlockGenerator,
+  'null2':blockly_null2BlockGenerator
 }

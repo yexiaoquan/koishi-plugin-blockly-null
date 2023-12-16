@@ -481,5 +481,6 @@
   <category name="第三方" colour="#5b80a5">
       <block type="null"/>
       <block type="null1"/>
+      <block type="null2"/>
   </category>
 </xml>
