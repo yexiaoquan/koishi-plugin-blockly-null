@@ -482,6 +482,7 @@
       <block type="null"/>
       <block type="null1"/>
       <block type="null2"/>
-      <block type="import_"/>
+      <block type="import"/>
+       <block type="export_const"/>
   </category>
 </xml>

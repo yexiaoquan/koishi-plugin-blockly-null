@@ -20,22 +20,34 @@ export function createWrapper(imports:Dict<any>, name="", using=[], apply=""){
   return result;  
 }
 
-export function moveImportToFront(text: string): string {  
+export function moveToFront(text: string): string {  
   const lines: string[] = text.split('\n');  
-  const importLines: string[] = [];  
+  const specialLines: string[] = []; // 用于存放以import或export const inject＝开头的行  
   const otherLines: string[] = [];  
   
   for (const line of lines) {  
-    if (line.trim().startsWith('import')) {  
-      // 如果行以import开头，去除空格后添加到importLines数组  
-      importLines.push(line.trim().trimLeft()); // 添加trimLeft()去除行开头的空格  
+    const trimmedLine = line.trimLeft(); // 去除行开头的空格  
+    if (trimmedLine.startsWith('import')) {  
+      specialLines.push(trimmedLine);  
+    } else if (trimmedLine.startsWith('export const')) {  
+      specialLines.push(trimmedLine);  
     } else {  
-      // 其他行保持不变，直接添加到otherLines数组  
       otherLines.push(line);  
     }  
   }  
   
-  const sortedText: string = importLines.concat(otherLines).join('\n');  
+  // 排序specialLines数组，确保以import开头的行在以export const inject＝开头的行前面  
+  specialLines.sort((a, b) => {  
+    if (a.startsWith('import')) {  
+      return -1; // 以import开头的行排在前面  
+    } else if (b.startsWith('import')) {  
+      return 1; // 以export const inject＝开头的行排在后面  
+    } else {  
+      return 0; // 保持不变的顺序  
+    }  
+  });  
+  
+  const sortedText: string = specialLines.concat(otherLines).join('\n');  
   return sortedText;  
 }
 
@@ -56,5 +68,5 @@ export function build(name,plugin_id,workspace:Workspace){
   })
 
   let a = createWrapper(currentImportMap,name,[],templates.map(t=>TemplateCodes[t]+"\n").map(t=>t.replace('{{name}}',name).replace("{{plugin_id}}",plugin_id)).join("")+javascriptGenerator.workspaceToCode(workspace))
-  return moveImportToFront(a)
+  return moveToFront(a)
 }
