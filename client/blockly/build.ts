@@ -22,7 +22,7 @@ export function createWrapper(imports:Dict<any>, name="", using=[], apply=""){
 
 export function moveToFront(text: string): string {  
   const lines: string[] = text.split('\n');  
-  const specialLines: string[] = []; // 用于存放以import或export const inject＝开头的行  
+  const specialLines: string[] = []; // 用于存放以import或export const 开头的行  
   const otherLines: string[] = [];  
   
   for (const line of lines) {  
@@ -36,12 +36,12 @@ export function moveToFront(text: string): string {
     }  
   }  
   
-  // 排序specialLines数组，确保以import开头的行在以export const inject＝开头的行前面  
+  // 排序specialLines数组，确保以import开头的行在以export const 开头的行前面  
   specialLines.sort((a, b) => {  
     if (a.startsWith('import')) {  
       return -1; // 以import开头的行排在前面  
     } else if (b.startsWith('import')) {  
-      return 1; // 以export const inject＝开头的行排在后面  
+      return 1; // 以export const 开头的行排在后面  
     } else {  
       return 0; // 保持不变的顺序  
     }  
