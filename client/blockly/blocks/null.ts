@@ -1,4 +1,3 @@
-import { block } from "blockly/core/tooltip";
 import {javascriptGenerator} from "blockly/javascript";
 
 export const blockly_null = {
@@ -48,7 +47,6 @@ export function blockly_null1BlockGenerator(block) {
   let code = `${text_name}\n`;
   return code;
 };
-
 
 export const blockly_null2 = {
   
