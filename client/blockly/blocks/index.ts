@@ -14,6 +14,7 @@ import {numberBlockGenerators, NumberBlocks} from "./number";
 import {TypeBlocks} from "./typing";
 import {nullBlockGenerators, nullBlocks } from "./null";
 import {importBlockGenerators, importBlocks } from "./import";
+import { atBlockGenerators, atBlocks } from "./at";
 
 export const Blocks = [
   ...LogicalBlocks,
@@ -30,7 +31,8 @@ export const Blocks = [
   ...NumberBlocks,
   ...TypeBlocks,
   ...nullBlocks,
-  ...importBlocks
+  ...importBlocks,
+  ...atBlocks
 ]
 
 export const BlockGenerators=Object.assign({},...[
@@ -46,5 +48,6 @@ export const BlockGenerators=Object.assign({},...[
   environmentBlockGenerators,
   numberBlockGenerators,
   nullBlockGenerators,
-  importBlockGenerators
+  importBlockGenerators,
+  atBlockGenerators
 ])
