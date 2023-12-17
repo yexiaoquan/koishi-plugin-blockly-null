@@ -84,30 +84,27 @@ Blockly.Msg['LANG_CONTROLS_FOR_INPUT_DO'] = 'do';
 Blockly.Msg['LANG_CONTROLS_FOR_TOOLTIP'] =
   'Count from a start number to an end number.\nFor each count, set the' +
   ' current count number to\nvariable \'%1\', and then do some statements.';
-Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_ITEM'] = 'for each';
+Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_ITEM'] = '变量';
 Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_VAR'] = 'number';
-Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_START'] = 'from';
-Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_END'] = 'to';
-Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_STEP'] = 'by';
-Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_DO'] = 'do';
+Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_START'] = '从';
+Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_END'] = '数到';
+Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_STEP'] = '每次增加';
+Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_DO'] = '执行';
 Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_COLLAPSED_TEXT'] =
   'for number in range';
 Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_COLLAPSED_PREFIX'] = 'for';
 Blockly.Msg['LANG_CONTROLS_FORRANGE_INPUT_COLLAPSED_SUFFIX'] = ' in range';
 Blockly.Msg['LANG_CONTROLS_FORRANGE_TOOLTIP'] =
-  'Runs the blocks in the \'do\' section for each numeric value in the' +
-  ' range from start to end, stepping the value each time.  Use the given' +
-  ' variable name to refer to the current value.';
-Blockly.Msg['LANG_CONTROLS_FOREACH_INPUT_ITEM'] = 'for each';
+  '让变量"i"记录开始数到结束数之间指定间隔的值，并执行一些语句';
+Blockly.Msg['LANG_CONTROLS_FOREACH_INPUT_ITEM'] = '遍历列表里的每一项';
 Blockly.Msg['LANG_CONTROLS_FOREACH_INPUT_VAR'] = 'item';
-Blockly.Msg['LANG_CONTROLS_FOREACH_INPUT_INLIST'] = 'in list';
-Blockly.Msg['LANG_CONTROLS_FOREACH_INPUT_DO'] = 'do';
+Blockly.Msg['LANG_CONTROLS_FOREACH_INPUT_INLIST'] = '列表';
+Blockly.Msg['LANG_CONTROLS_FOREACH_INPUT_DO'] = '执行';
 Blockly.Msg['LANG_CONTROLS_FOREACH_INPUT_COLLAPSED_TEXT'] = 'for item in list';
 Blockly.Msg['LANG_CONTROLS_FOREACH_INPUT_COLLAPSED_PREFIX'] = 'for ';
 Blockly.Msg['LANG_CONTROLS_FOREACH_INPUT_COLLAPSED_SUFFIX'] = ' in list';
 Blockly.Msg['LANG_CONTROLS_FOREACH_TOOLTIP'] =
-  'Runs the blocks in the \'do\'  section for each item in the list.  Use' +
-  ' the given variable name to refer to the current list item.';
+  '遍历列表中的每一项，将变量"j"设为所选项，并执行一些语句';
 Blockly.Msg['LANG_CONTROLS_FOREACH_DICT_INPUT'] =
   'for each %1 with %2 in dictionary %3';
 Blockly.Msg['LANG_CONTROLS_FOREACH_DICT_INPUT_DO'] = 'do';
