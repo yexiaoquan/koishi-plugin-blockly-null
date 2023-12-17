@@ -313,6 +313,7 @@
       <block type="lexical_variable_set"/>
       <block type="local_declaration_statement"/>
     </category>
+    <category name="函数" colour="#995ba5" custom="PROCEDURE"/>
   </category>
   <sep/>
   <category name="机器人">
@@ -369,8 +370,8 @@
           <field name="TEXT">https://example.org/example.mp4</field>
         </shadow>
       </value>
-    </block>
-      <block type="parse_segment_list">
+      </block>
+        <block type="parse_segment_list">
         <value name="segments">
           <shadow type="session_elements"/>
         </value>
@@ -466,25 +467,12 @@
       <block type="plugin_id"/>
     </category>
   </category>
-  <category name="进阶">
-    <category name="类型系统">
-      <block type="type_getter"/>
-      <block type="type_definition"/>
-      <block type="type_any"/>
-      <block type="type_never"/>
-      <block type="type_string"/>
-      <block type="type_number"/>
-      <block type="type_boolean"/>
-      <block type="type_array"/>
-      <block type="type_union"/>
-      <block type="type_object"/>
-    </category>
-  </category>
+  <sep/>
   <category name="空白块" colour="#5b80a5">
       <block type="null"/>
       <block type="null1"/>
       <block type="null2"/>
       <block type="import"/>
-       <block type="export_const"/>
+      <block type="export_const"/>
   </category>
 </xml>

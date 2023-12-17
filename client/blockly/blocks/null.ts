@@ -57,7 +57,7 @@ export const blockly_null2 = {
         "type": "field_input",
         "name": "NAME",
         "text": "空白"
-      },
+      }, 
     ],
     "output": null,
     "colour": 230,
