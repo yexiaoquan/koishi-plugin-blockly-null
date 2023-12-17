@@ -19,7 +19,7 @@ export const blockly_null = {
 
 export function blockly_nullBlockGenerator(block){
   let text_name = block.getFieldValue('NAME');
-  let code = `${text_name}\n;`;
+  let code = `${text_name};\n`;
   return code;
 };
 
@@ -44,7 +44,7 @@ export const blockly_null1 = {
 
 export function blockly_null1BlockGenerator(block) {
   let text_name = block.getFieldValue('NAME');
-  let code = `${text_name}\n;`;
+  let code = `${text_name};\n`;
   return code;
 };
 
