@@ -25,20 +25,29 @@ export function moveToFront(text: string): string {
   const specialLines: string[] = []; // 用于存放以import或export const 开头的行  
   const otherLines: string[] = [];  
   
+  // 定义类型  
+  enum LineType {  
+    Import,  
+    Export,  
+    Other  
+  }  
+  
   for (const line of lines) {  
     const trimmedLine = line.trimLeft(); // 去除行开头的空格  
-    if (trimmedLine.startsWith('import')) {  
-      specialLines.push(trimmedLine);  
-    } else if (trimmedLine.startsWith('export const')) {  
+    const lineType: LineType = trimmedLine.startsWith('import') ? LineType.Import : trimmedLine.startsWith('export const') ? LineType.Export : LineType.Other;  
+      
+    if (lineType === LineType.Import || lineType === LineType.Export) {  
       specialLines.push(trimmedLine);  
     } else {  
       otherLines.push(line);  
     }  
   }  
-  
-  // 排序specialLines数组，确保以import开头的行在以export const 开头的行前面  
+    
+  // 根据类型进行排序，保持原始顺序  
   specialLines.sort((a, b) => {  
-    if (a.startsWith('import')) {  
+    if (a.startsWith('import') && b.startsWith('export const')) {  
+      return 0; // 保持不变的顺序  
+    } else if (a.startsWith('import')) {  
       return -1; // 以import开头的行排在前面  
     } else if (b.startsWith('import')) {  
       return 1; // 以export const 开头的行排在后面  
@@ -46,7 +55,7 @@ export function moveToFront(text: string): string {
       return 0; // 保持不变的顺序  
     }  
   });  
-  
+    
   const sortedText: string = specialLines.concat(otherLines).join('\n');  
   return sortedText;  
 }
