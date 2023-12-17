@@ -2,7 +2,7 @@
 export const import_0 ={
   
   "type": "import",
-  "message0": "import { %1 } form \" %2 \"",
+  "message0": "import { %1 } from \" %2 \"",
   "args0": [
     {
       "type": "field_input",
@@ -25,7 +25,7 @@ export function import_0BlockGenerators(block) {
   let text_name = block.getFieldValue('NAME');
   let text_name1 = block.getFieldValue('NAME1');
   // TODO: Assemble javascript into code variable.
-  let code = `import {${text_name}} form "${text_name1}";\n`;
+  let code = `import {${text_name}} from "${text_name1}";\n`;
   return code;
 };
 
