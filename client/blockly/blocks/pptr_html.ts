@@ -11,6 +11,7 @@ export const pptr_html = {
     "output": null,
     "extensions":['session_provider','argument_provider'],
     "imports":{'koishi-plugin-puppeteer':[]},
+    "injects":{required: ["puppeteer"]},
     "colour": 230,
     "tooltip": "",
     "helpUrl": ""

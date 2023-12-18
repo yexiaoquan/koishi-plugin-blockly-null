@@ -412,12 +412,8 @@
             <field name="TEXT">键值对键</field>
           </shadow>
         </value>
-        <value name="key">
-          <shadow type="text">
-            <field name="TEXT">键值对键</field>
-          </shadow>
-        </value>
       </block>
+      <block type="test"/>
     </category>
     <category name="机器人操作" colour="#5b80a5">
       <block type="delete_message">
@@ -469,11 +465,11 @@
   </category>
   <sep/>
   <category name="空白块" colour="#5b80a5">
-      <block type="null"/>
-      <block type="null1"/>
-      <block type="null2"/>
-      <block type="import"/>
-      <block type="export_const"/>
-      <block type="pptr"/>
+    <block type="null"/>
+    <block type="null1"/>
+    <block type="null2"/>
+    <block type="import"/>
+    <block type="export_const"/>
+    <block type="pptr"/>
   </category>
 </xml>
