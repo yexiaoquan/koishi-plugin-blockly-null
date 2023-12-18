@@ -474,5 +474,6 @@
       <block type="null2"/>
       <block type="import"/>
       <block type="export_const"/>
+      <block type="pptr"/>
   </category>
 </xml>

@@ -12,7 +12,7 @@ export interface Config {}
 
 export const Config: Schema<Config> = Schema.object({})
 
-export const using = ['database','console']
+export const inject = {required: ["database","console"]}
 
 export async function apply(ctx: Context) {
   ctx.plugin(BlocklyService)

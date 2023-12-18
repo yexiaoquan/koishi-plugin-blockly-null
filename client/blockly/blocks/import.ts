@@ -25,7 +25,7 @@ export function import_0BlockGenerators(block) {
   let text_name = block.getFieldValue('NAME');
   let text_name1 = block.getFieldValue('NAME1');
   // TODO: Assemble javascript into code variable.
-  let code = `import {${text_name}} from "${text_name1}";\n`;
+  let code = `import {${text_name}} from "${text_name1}"`;
   return code;
 };
 
@@ -42,7 +42,7 @@ export const export_const ={
     {
       "type": "field_input",
       "name": "NAME1",
-      "text": "[]"
+      "text": "{}"
     }
   ],
   "colour": 330,
@@ -54,7 +54,7 @@ export function export_constBlockGenerators(block) {
   let text_name = block.getFieldValue('NAME');
   let text_name1 = block.getFieldValue('NAME1');
   // TODO: Assemble javascript into code variable.
-  let code = `export const ${text_name} = ${text_name1} ;\n`;
+  let code = `export const ${text_name} = ${text_name1}`;
   return code;
 };
 

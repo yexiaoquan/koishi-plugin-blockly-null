@@ -15,6 +15,7 @@ import {TypeBlocks} from "./typing";
 import {nullBlockGenerators, nullBlocks } from "./null";
 import {importBlockGenerators, importBlocks } from "./import";
 import { atBlockGenerators, atBlocks } from "./at";
+import { pptrBlockGenerators, pptrBlocks } from "./pptr_html";
 
 export const Blocks = [
   ...LogicalBlocks,
@@ -32,7 +33,8 @@ export const Blocks = [
   ...TypeBlocks,
   ...nullBlocks,
   ...importBlocks,
-  ...atBlocks
+  ...atBlocks,
+  ...pptrBlocks
 ]
 
 export const BlockGenerators=Object.assign({},...[
@@ -49,5 +51,6 @@ export const BlockGenerators=Object.assign({},...[
   numberBlockGenerators,
   nullBlockGenerators,
   importBlockGenerators,
-  atBlockGenerators
+  atBlockGenerators,
+  pptrBlockGenerators
 ])

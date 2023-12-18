@@ -12,6 +12,7 @@ export const blockly_null = {
       }
     ],
     "colour": 230,
+    
     "tooltip": "啊，没有提示",
     "helpUrl": ""
 
