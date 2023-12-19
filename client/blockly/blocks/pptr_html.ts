@@ -9,9 +9,9 @@ export const pptr_html = {
       }
     ],
     "output": null,
-    "extensions":['session_provider','argument_provider'],
     "imports":{'koishi-plugin-puppeteer':[]},
-    "injects":{required: ["puppeteer"]},
+    "injects":{required: ["puppeteer"]},//奋斗结下的不一定是果实，也许是报错
+    "template":["pptr"],
     "colour": 230,
     "tooltip": "",
     "helpUrl": ""
