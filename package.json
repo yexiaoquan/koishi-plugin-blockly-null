@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-blockly-null",
   "description": "Use blockly to develop a simple koishi plugin",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "repository": {
@@ -40,6 +40,9 @@
     ],
     "description": {
       "zh": "Blockly的fork版,多了一些注入块用来注入"
+    },
+    "service": {
+      "required": ["database","console","puppeteer"]
     }
   },
   "peerDependencies": {
