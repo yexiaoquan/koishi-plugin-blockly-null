@@ -54,7 +54,7 @@ export const broadcastBlock = {
 export function broadcastBlockGenerator(block){
   let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC);
   let value_name1 = javascriptGenerator.valueToCode(block, 'NAME1', javascriptGenerator.ORDER_ATOMIC);
-  return `await bot.broadcast(${value_name}, ${value_name1});\n`;
+  return `await session.bot.broadcast(${value_name}, ${value_name1});\n`;
 }
 
 export const ReturnMessageBlock = {
