@@ -340,6 +340,7 @@
       <block type="at_id"/>
       <block type="at_name"/>
       <block type="group_name"/>
+      <block type="group_id"/>
     </category>
     <category name="消息" colour="#5b80a5">
       <block type="send_session_message"/>

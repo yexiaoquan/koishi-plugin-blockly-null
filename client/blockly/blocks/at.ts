@@ -40,15 +40,30 @@ export function   group_nameBlockGenerator(block){
   let code = `session.event.guild.name`;
   return [code,javascriptGenerator.ORDER_NONE];
 }
+export const group_id = {
+  "type": "group_id",
+  "message0": "获取群聊id",
+  "output": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}
+  
+export function   group_idBlockGenerator(block){
+  let code = `session.event.guild.id`;
+  return [code,javascriptGenerator.ORDER_NONE];
+}
 
 export const atBlocks = [
   at_id,
   at_name,
-  group_name
+  group_name,
+  group_id
 ]
     
 export const atBlockGenerators = {
   'at_id':at_idBlockGenerator,
   'at_name':at_nameBlockGenerator,
-  'group_name': group_nameBlockGenerator
+  'group_name': group_nameBlockGenerator,
+  'group_id': group_idBlockGenerator
 }
