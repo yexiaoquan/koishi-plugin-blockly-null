@@ -27,13 +27,28 @@ export function at_nameBlockGenerator(block){
   let code = `session.elements.filter((element) => element.type == 'at')?.[0].attrs.name`;
   return [code,javascriptGenerator.ORDER_NONE];
 }
+export const group_name = {
+  "type": "group_name",
+  "message0": "获取群聊名称",
+  "output": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}
+  
+export function   group_nameBlockGenerator(block){
+  let code = `session.event.guild.name`;
+  return [code,javascriptGenerator.ORDER_NONE];
+}
 
 export const atBlocks = [
   at_id,
-  at_name
+  at_name,
+  group_name
 ]
     
 export const atBlockGenerators = {
   'at_id':at_idBlockGenerator,
-  'at_name':at_nameBlockGenerator
+  'at_name':at_nameBlockGenerator,
+  'group_name': group_nameBlockGenerator
 }
