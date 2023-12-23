@@ -344,6 +344,16 @@
     <category name="消息" colour="#5b80a5">
       <block type="send_session_message"/>
       <block type="return_message"/>
+      <block type="broadcast">
+        <value name = "NAME">
+          <shadow type="lists_create_with">
+            <mutation items="0"/>
+          </shadow>
+        </value>
+        <value name = "NAME1">
+          <shadow type="text"/>
+        </value>
+      </block>
     </category>
     <category name="消息元素" colour="#5b80a5">
       <block type="segment_at">
