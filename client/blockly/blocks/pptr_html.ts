@@ -14,7 +14,7 @@ export const pptr_html = {
     "template":["pptr"],
     "colour": 230,
     "tooltip": "",
-    "helpUrl": ""
+    "helpUrl": "https://forum.koishi.xyz/t/topic/6244"
 }
 
 export function pptr_htmlBlockGenerator(block) {

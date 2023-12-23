@@ -6,7 +6,7 @@ export const at_id = {
   "output": null,
   "colour": 230,
   "tooltip": "",
-  "helpUrl": ""
+  "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
 }
 
 export function at_idBlockGenerator(block){
@@ -20,7 +20,7 @@ export const at_name = {
   "output": null,
   "colour": 230,
   "tooltip": "",
-  "helpUrl": ""
+  "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
 }
   
 export function at_nameBlockGenerator(block){
