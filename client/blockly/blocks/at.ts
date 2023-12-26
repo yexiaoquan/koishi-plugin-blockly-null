@@ -33,7 +33,7 @@ export const group_name = {
   "output": null,
   "colour": 230,
   "tooltip": "",
-  "helpUrl": ""
+  "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
 }
   
 export function   group_nameBlockGenerator(block){
@@ -46,7 +46,7 @@ export const group_id = {
   "output": null,
   "colour": 230,
   "tooltip": "",
-  "helpUrl": ""
+  "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
 }
   
 export function   group_idBlockGenerator(block){

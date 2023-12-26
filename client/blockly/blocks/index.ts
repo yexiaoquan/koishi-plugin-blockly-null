@@ -17,6 +17,7 @@ import {importBlockGenerators, importBlocks } from "./import";
 import { atBlockGenerators, atBlocks } from "./at";
 import { pptrBlockGenerators, pptrBlocks } from "./pptr_html";
 import { testBlockGenerators, testBlocks } from "./test";
+import { zhilingBlockGenerators, zhilingBlocks } from "./zhiling";
 
 export const Blocks = [
   ...LogicalBlocks,
@@ -36,7 +37,8 @@ export const Blocks = [
   ...importBlocks,
   ...atBlocks,
   ...pptrBlocks,
-  ...testBlocks
+  ...testBlocks,
+  ...zhilingBlocks
 ]
 
 export const BlockGenerators=Object.assign({},...[
@@ -55,5 +57,6 @@ export const BlockGenerators=Object.assign({},...[
   importBlockGenerators,
   atBlockGenerators,
   pptrBlockGenerators,
-  testBlockGenerators
+  testBlockGenerators,
+  zhilingBlockGenerators
 ])

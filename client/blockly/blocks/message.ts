@@ -47,7 +47,7 @@ export const broadcastBlock = {
   "nextStatement": null,
   "colour": 230,
   "tooltip": "发送广播消息到指定群聊",
-  "helpUrl": ""
+  "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
   
 };
 
