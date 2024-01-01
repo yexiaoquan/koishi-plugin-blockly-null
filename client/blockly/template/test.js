@@ -1,4 +1,4 @@
-const fs = require('fs');
+let fs = require('fs');
 const path = require('path');
 function getFiles(dir, extensions, files_){
     files_ = files_ || [];

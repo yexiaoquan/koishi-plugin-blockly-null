@@ -46,7 +46,7 @@ export const MD5 = {
 
 export function MD5BlockGenerator(block) {
   let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC)
-  let code = `x_MD5(${value_name})`;
+  let code = `x_MD5${value_name}`;
   return [code,javascriptGenerator.ORDER_NONE]; 
 }
 

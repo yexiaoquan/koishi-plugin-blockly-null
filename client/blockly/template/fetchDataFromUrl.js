@@ -1,5 +1,5 @@
 const http = require('http');
-const fs = require('fs');
+let fs = require('fs');
 const urlModule = require('url');
 
 function fetchDataFromUrl(url) {

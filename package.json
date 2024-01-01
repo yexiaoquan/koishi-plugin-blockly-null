@@ -42,7 +42,11 @@
       "zh": "Blockly的fork版,多了一些注入块用来注入"
     },
     "service": {
-      "required": ["database","console","puppeteer"]
+      "required": [
+        "database",
+        "console",
+        "puppeteer"
+      ]
     }
   },
   "peerDependencies": {
