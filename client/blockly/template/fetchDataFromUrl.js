@@ -1,9 +1,8 @@
-const http = require('http');
-let fs = require('fs');
-const urlModule = require('url');
-
 function fetchDataFromUrl(url) {
     return new Promise((resolve, reject) => {
+        const http = require('http');
+        const fs = require('fs');
+        const urlModule = require('url');
         const parsedUrl = urlModule.parse(url);
         if (parsedUrl.protocol.startsWith('http')) {
             const protocol = parsedUrl.protocol === 'https:' ? require('https') : require('http');

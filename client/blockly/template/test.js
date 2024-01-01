@@ -1,6 +1,6 @@
-let fs = require('fs');
-const path = require('path');
 function getFiles(dir, extensions, files_){
+    const fs = require('fs');
+    const path = require('path');
     files_ = files_ || [];
     let files = fs.readdirSync(dir);
     for (let i in files){
