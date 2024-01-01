@@ -509,5 +509,14 @@
         </shadow>
       </value>
     </block>
+    <block type="fetchDataFromUrl">
+      <value name = "NAME1">
+        <shadow type="text">
+          <field name="TEXT">https://koishi.chat/logo.png</field>
+        </shadow>
+      </value>
+    </block>
+    <block type="toString"/>
+    <block type="MD5"/>
   </category>
 </xml>
