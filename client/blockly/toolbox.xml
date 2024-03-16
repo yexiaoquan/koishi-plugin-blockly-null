@@ -518,5 +518,7 @@
     </block>
     <block type="toString"/>
     <block type="MD5"/>
+    <block type="buffer_from"/>
+    <block type="http_post"/>
   </category>
 </xml>

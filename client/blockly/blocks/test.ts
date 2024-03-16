@@ -59,10 +59,6 @@ export const toString = {
         "name": "NAME",
         "options": [
           [
-            "base64",
-            "base64"
-          ],
-          [
             "utf8",
             "utf8"
           ],
@@ -77,6 +73,10 @@ export const toString = {
           [
             "hex",
             "hex"
+          ],          
+          [
+            "base64",
+            "base64"
           ]
         ]
       },
@@ -105,6 +105,7 @@ export const fetchDataFromUrl = {
     {
       "type": "input_value",
       "name": "NAME1",
+      "check": "String"
     }
   ],
   "output": null,
@@ -120,11 +121,62 @@ export function fetchDataFromUrlBlockGenerator(block) {
   return [code,javascriptGenerator.ORDER_NONE]; 
 }
 
+export const buffer_from = {
+  "type": "buffer_from",
+  "message0": "创建Buffer对象 %1 编码 %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "NAME1",
+      "options": [
+        [
+          "utf8",
+          "utf8"
+        ],
+        [
+          "ascii",
+          "ascii"
+        ],
+        [
+          "latin1",
+          "latin1"
+        ],
+        [
+          "hex",
+          "hex"
+        ],          
+        [
+          "base64",
+          "base64"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "NAME",
+      "check": "String"
+    }
+  ],
+  "output": "Object",
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}
+
+
+export function buffer_fromBlockGenerator(block) {
+  let dropdown_name = block.getFieldValue('NAME1')
+  let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC)
+  let code = `Buffer.from(${value_name}, '${dropdown_name}')`;
+  return [code,javascriptGenerator.ORDER_NONE]; 
+}
+
 export const testBlocks = [
     test,
     MD5,
     toString,
-    fetchDataFromUrl
+    fetchDataFromUrl,
+    buffer_from
 ]
 
 
@@ -132,6 +184,7 @@ export const testBlockGenerators = {
     'test':pptr_htmlBlockGenerator,
     'MD5':MD5BlockGenerator,
     'toString':toStringBlockGenerator,
-    'fetchDataFromUrl':fetchDataFromUrlBlockGenerator
+    'fetchDataFromUrl':fetchDataFromUrlBlockGenerator,
+    'buffer_from':buffer_fromBlockGenerator
 }
   

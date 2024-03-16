@@ -11,11 +11,7 @@ export function createWrapper(imports:Dict<any>, name="", using=[], apply=""){
     ).join("") +  
     WrapperTemplate  
     .replace(/\{\{name}}/g, name.replace(/"/g,"\\\"").replace(/\\/g,"\\\\"))  
-    .replace(/\{\{using}}/g, JSON.stringify(using))  
     .replace(/\{\{apply}}/g, apply.split("\n").map(t=>"  "+t).join("\n"));  
-  
-  // 删除 export const using = [] 字段  
-  result = result.replace(/export const using = \[\];?/, '');  
   
   return result;  
 }

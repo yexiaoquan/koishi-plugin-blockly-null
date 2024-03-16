@@ -51,5 +51,5 @@ export function parameterListMutator(){
     loadExtraState: function(state) {
       this.parameters = state['parameters'];
     }
-  }, undefined, ['any_parameter','string_parameter','number_parameter','boolean_parameter','int_parameter']);
+  }, undefined, ['any_parameter','string_parameter','number_parameter','boolean_parameter','int_parameter','posint_parameter','text_parameter']);
 }

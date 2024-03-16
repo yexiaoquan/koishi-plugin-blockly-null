@@ -10,7 +10,7 @@ export const zhiling = {
     ],
     "output": null,
     "colour": 230,
-    "tooltip": "调用指令并返回结果",
+    "tooltip": "调用指令",
     "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
 }
 

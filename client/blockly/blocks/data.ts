@@ -44,6 +44,54 @@ export function httpGetBlockGenerator(block:BlockSvg){
   return [`await ctx.http.get(${value_url},{responseType:"${response_type}"})`, javascriptGenerator.ORDER_NONE];
 }
 
+export const HttpPostBlock = {
+  "type": "http_post",
+  "message0": "发送简单HTTP Post请求 %1 网址 %2 参数 %3 返回类型 %4",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_value",
+      "name": "url"
+    },
+    {
+      "type": "input_value",
+      "name": "data"
+    },
+    {
+      "type": "field_dropdown",
+      "name": "response_type",
+      "options": [
+        [
+          "默认类型",
+          ""
+        ],
+        [
+          "JSON对象类型",
+          "json"
+        ],
+        [
+          "文本类型",
+          "text"
+        ]
+      ]
+    }
+  ],
+  "inputsInline": false,
+  "output": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}
+
+export function httpPostBlockGenerator(block:BlockSvg){
+  let value_url = javascriptGenerator.valueToCode(block, 'url', javascriptGenerator.ORDER_ATOMIC);
+  let value_data = javascriptGenerator.valueToCode(block, 'data', javascriptGenerator.ORDER_ATOMIC);
+  let response_type = block.getFieldValue('response_type');
+  return [`await ctx.http.post(${value_url},${value_data},{responseType:"${response_type}"})`, javascriptGenerator.ORDER_NONE];
+}
+
 export const JsonPathParseBlock = {
   "type": "json_path_parse",
   "message0": "解析JSON对象 %1 JSONPath %2",
@@ -146,12 +194,14 @@ export const DataBlocks = [
   HttpGetBlock,
   JsonPathParseBlock,
   KeyValueWriteBlock,
-  KeyValueReadBlock
+  KeyValueReadBlock,
+  HttpPostBlock
 ]
 
 export const dataBlockGenerators = {
   'http_get':httpGetBlockGenerator,
   'json_path_parse':jsonPathBlockGenerator,
   'key_value_write':keyValueWriteBlockGenerator,
-  'key_value_read':keyValueReadBlockGenerator
+  'key_value_read':keyValueReadBlockGenerator,
+  'http_post':httpPostBlockGenerator
 }
