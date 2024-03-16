@@ -1,8 +1,7 @@
 # koishi-plugin-blockly-null
 
 
-koishi-plugin-Blockly的fork版,多了一些注入块用来注入
-
+koishi-plugin-Blockly的fork版,多了一些奇怪的块
 
 ## 如何使用? How to use it?
 在 Koishi 市场中搜索"Blockly-null"，安装并启用插件即可。
