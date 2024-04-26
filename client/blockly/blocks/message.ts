@@ -82,14 +82,64 @@ export function returnMessageBlockGenerator(block){
   return `return ${value_name};\n`;
 }
 
+export const bot_sendmessage = {
+  "type": "bot_sendmessage",
+  "message0": "发送消息给事件发送者并返回消息id %1",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "NAME"
+    }
+  ],
+  "output": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}
+
+export function bot_sendmessageBlockGenerator(block){
+  let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC);
+  let code = `await bot.sendMessage(session.channelId , ${value_name})`;
+  return [code,javascriptGenerator.ORDER_NONE];
+}
+
+export const session_prompt = {
+  "type": "session_prompt",
+  "message0": "等待输入消息 %1 等待时间 %2",
+  "args0": [
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_value",
+      "name": "time",
+      "align": "RIGHT"
+    }
+  ],
+  "output": null,
+  "colour": 230,
+  "tooltip": "等待用户输入，返回输入文本。若超时未输入返回未定义undefined",
+  "helpUrl": ""
+}
+
+export function session_promptBlockGenerator(block) {
+  let value_name = javascriptGenerator.valueToCode(block, 'time', javascriptGenerator.ORDER_ATOMIC)
+  let code = `await session.prompt (${value_name})`;
+  return [code,javascriptGenerator.ORDER_NONE];
+  };
+  
 export const MessageBlocks = [
   SendSessionMessageBlock,
   ReturnMessageBlock,
-  broadcastBlock
+  broadcastBlock,
+  session_prompt,
+  bot_sendmessage
 ]
 
 export const messageBlocks = {
   'send_session_message':sendSessionMessageBlockGenerator,
   'return_message':returnMessageBlockGenerator,
-  'broadcast':broadcastBlockGenerator
+  'broadcast':broadcastBlockGenerator,
+  'session_prompt':session_promptBlockGenerator,
+  'bot_sendmessage':bot_sendmessageBlockGenerator
 }
