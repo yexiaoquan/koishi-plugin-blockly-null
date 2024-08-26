@@ -106,7 +106,7 @@ const rewriteExport = (code, ctx?, fn?, x?, i?) => code.replace(RE_EXPORT, rewri
 //Code from rewrite-imports
 
 function destruct(keys, target) {
-  var out=[];
+  var out = [];
   while (keys.length) out.push(keys.shift().trim().replace(/ as /g, ':'));
   return 'const { ' + out.join(', ') + ' } = ' + target;
 }
@@ -120,10 +120,10 @@ export function rewriteImport(str, fn?) {
   fn = fn || 'require';
   return str.replace(/(^|;\s*|\r?\n+)import\s*((?:\*\s*as)?\s*([a-z$_][\w$]*)?\s*,?\s*(?:{([\s\S]*?)})?)?\s*(from)?\s*(['"`][^'"`]+['"`])(?=;?)(?=([^"'`]*["'`][^"'`]*["'`])*[^"'`]*$)/gi, function (raw, ws, _, base, req, fro, dep) {
     dep = fn + '(' + dep + ')';
-    return (ws||'') + (fro ? generate(req ? req.split(',') : [], dep, base) : dep);
+    return (ws || '') + (fro ? generate(req ? req.split(',') : [], dep, base) : dep);
   });
 }
 
-export function esModuleToCommonJs(code){
+export function esModuleToCommonJs(code) {
   return rewriteImport(rewriteExport(code));
 }

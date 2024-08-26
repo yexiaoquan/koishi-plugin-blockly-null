@@ -1,10 +1,10 @@
-import {DataService} from "@koishijs/plugin-console";
-import {Context} from "koishi";
-import {BlocklyMenuItem} from "./index";
-import {v4 as uuidV4} from 'uuid'
+import { DataService } from "@koishijs/plugin-console";
+import { Context } from "koishi";
+import { BlocklyMenuItem } from "./index";
+import { v4 as uuidV4 } from 'uuid'
 
 declare module '@koishijs/plugin-console' {
-  namespace Console{
+  namespace Console {
     interface Services {
       blockly: BlocklyProvider
     }
@@ -16,7 +16,7 @@ export class BlocklyProvider extends DataService<BlocklyMenuItem[]> {
     super(ctx, 'blockly')
   }
   async get() {
-    return (await this.ctx.database.get('blockly',{id:{$not:-1}},["id","name","enabled","edited","uuid"]))
+    return (await this.ctx.database.get('blockly', { id: { $not: -1 } }, ["id", "name", "enabled", "edited", "uuid"]))
   }
 }
 
@@ -32,13 +32,13 @@ export async function initializeDatabase(ctx) {
   }, {
     autoInc: true
   })
-  const blocks = await ctx.database.get('blockly', {id: {$not:-1}})
+  const blocks = await ctx.database.get('blockly', { id: { $not: -1 } })
   const logger = ctx.logger('blockly')
-  for(const block of blocks){
-    if(!block.uuid){
+  for (const block of blocks) {
+    if (!block.uuid) {
       const uuid = uuidV4()
       logger.info(`block ${block.id} has no uuid ->  ${uuid}`)
-      await ctx.database.set('blockly',block.id,{uuid})
+      await ctx.database.set('blockly', block.id, { uuid })
     }
   }
 }
