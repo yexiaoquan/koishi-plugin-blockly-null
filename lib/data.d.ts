@@ -10,6 +10,6 @@ declare module '@koishijs/plugin-console' {
 }
 export declare class BlocklyProvider extends DataService<BlocklyMenuItem[]> {
     constructor(ctx: Context);
-    get(): Promise<import("minato").FlatPick<import("./structure").BlocklyDocument, "id" | "name" | "enabled" | "edited" | "uuid">[]>;
+    get(): Promise<Pick<import("./structure").BlocklyDocument, "name" | "id" | "uuid" | "enabled" | "edited">[]>;
 }
 export declare function initializeDatabase(ctx: any): Promise<void>;
