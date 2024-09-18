@@ -26,7 +26,24 @@ export function ObjectBlockGenerator(block) {
 };
 
 export const KeysBlock = {
-    
+  "type": "keys",
+  "message0": "%1 : %2",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "NAME",
+      "text": "default"
+    },
+    {
+      "type": "input_value",
+      "name": "NAME"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
 };
 
 export function KeysBlockGenerator(block) {

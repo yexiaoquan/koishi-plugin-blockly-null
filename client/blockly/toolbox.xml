@@ -313,6 +313,10 @@
       <block type="lexical_variable_set"/>
       <block type="local_declaration_statement"/>
     </category>
+    <category name="对象" colour="#5b80a5">
+      <block type="Object"/>
+      <block type="keys"/>
+    </category>
     <category name="颜色" colour="#a5745b">
       <block type="colour_picker">
       <field name="COLOUR">#ff0000</field>
@@ -525,6 +529,21 @@
       </block>
       <block type="plugin_id"/>
     </category>
+  </category>
+  <sep/>
+  <category name="绘画">
+   <category name="canvas" colour="#5b80a5">
+
+   </category>
+   <category name="html" colour="#5b80a5">
+    <block type="pptr">
+      <value name = "NAME">
+        <shadow type="text">
+          <field name="TEXT">&#60;html&#62; &#60;/html&#62;</field>
+        </shadow>
+      </value>
+    </block>
+   </category>
   </category>
   <sep/>
   <category name="空白块" colour="#5b80a5">
