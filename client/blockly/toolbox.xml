@@ -316,6 +316,7 @@
     <category name="对象" colour="#5b80a5">
       <block type="Object"/>
       <block type="keys"/>
+      <block type="text_json"/>
     </category>
     <category name="颜色" colour="#a5745b">
       <block type="colour_picker">

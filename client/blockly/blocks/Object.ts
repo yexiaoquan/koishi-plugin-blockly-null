@@ -47,20 +47,56 @@ export const KeysBlock = {
 };
 
 export function KeysBlockGenerator(block) {
-    let text_1 = block.getFieldValue('1');
-    let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC);
-    let code = `${text_1}:${value_name},\n`;
-    return [code,javascriptGenerator.ORDER_ATOMIC];
+  let text_1 = block.getFieldValue('1');
+  let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC);
+  let code = `"${text_1}":${value_name},\n`;
+  return [code,javascriptGenerator.ORDER_ATOMIC];
 };
 
+export const textjsonBlock = {
+  "type": "text_json",
+  "message0": "%1 %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "NAME1",
+      "options": [
+        [
+          "文本转换为json对象",
+          "parse"
+        ],
+        [
+          "json对象转换为文本",
+          "stringify"
+        ]
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "NAME1"
+    }
+  ],
+  "output": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+};
+
+export function textjsonBlockGenerator(block) {
+  let dropdown_name = block.getFieldValue('NAME1')
+  let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC)
+  let code = `JSON.${dropdown_name}(${value_name})\n`;
+  return [code,javascriptGenerator.ORDER_ATOMIC];
+};
 
 export const ObjectBlocks = [
     ObjectBlock,
-    KeysBlock
+    KeysBlock,
+    textjsonBlock
 ];
   
 export const ObjectBlockGenerators = {
     'Object':ObjectBlockGenerator,
     'Keys':KeysBlockGenerator,
-
+    'text_json':textjsonBlockGenerator
 };
