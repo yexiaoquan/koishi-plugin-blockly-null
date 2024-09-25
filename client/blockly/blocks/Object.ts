@@ -9,8 +9,7 @@ export const ObjectBlock = {
       },
       {
         "type": "input_statement",
-        "name": "action",
-        "check": "key"
+        "name": "action"
       }
     ],
     "output": null,
@@ -26,13 +25,13 @@ export function ObjectBlockGenerator(block) {
 };
 
 export const KeysBlock = {
-  "type": "keys",
+  "type": "Keys",
   "message0": "%1 : %2",
   "args0": [
     {
       "type": "field_input",
-      "name": "NAME",
-      "text": "default"
+      "name": "NAME1",
+      "text": "键"
     },
     {
       "type": "input_value",
@@ -47,10 +46,10 @@ export const KeysBlock = {
 };
 
 export function KeysBlockGenerator(block) {
-  let text_1 = block.getFieldValue('1');
-  let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC);
-  let code = `"${text_1}":${value_name},\n`;
-  return [code,javascriptGenerator.ORDER_ATOMIC];
+  let dropdown_name = block.getFieldValue('NAME1')
+  let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC)
+  let code = `"${dropdown_name}"\:${value_name},\n`;
+  return code;
 };
 
 export const textjsonBlock = {
@@ -73,7 +72,7 @@ export const textjsonBlock = {
     },
     {
       "type": "input_value",
-      "name": "NAME1"
+      "name": "NAME"
     }
   ],
   "output": null,
