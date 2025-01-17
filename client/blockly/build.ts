@@ -1,77 +1,92 @@
 import WrapperTemplate from './template.js.tpl?raw'
-import {javascriptGenerator} from "blockly/javascript";
-import {deduplicate} from "cosmokit"
-import {Workspace} from "blockly";
-import {Dict, } from "cosmokit";
-import {TemplateCodes} from "./template";
+import { javascriptGenerator } from "blockly/javascript";
+import { deduplicate } from "cosmokit"
+import { Workspace } from "blockly";
+import { Dict, } from "cosmokit";
+import { TemplateCodes } from "./template";
 
-export function createWrapper(imports:Dict<any>, name="", using=[], apply=""){  
-  let result = [...Object.entries(imports)].map(([i,j])=>  
-      `import { ${j.join(', ')} } from "${i}"\n`  
-    ).join("") +  
-    WrapperTemplate  
-    .replace(/\{\{name}}/g, name.replace(/"/g,"\\\"").replace(/\\/g,"\\\\"))  
-    .replace(/\{\{apply}}/g, apply.split("\n").map(t=>"  "+t).join("\n"));  
-  
-  return result;  
+export function createWrapper(imports: Dict<any>, name = "", injects = [], apply = "") {
+  let result = [...Object.entries(imports)].map(([i, j]) =>
+    `import { ${j.join(', ')} } from "${i}"\n`
+  ).join("") +
+    WrapperTemplate
+      .replace(/\{\{name}}/g, name.replace(/"/g, "\\\"").replace(/\\/g, "\\\\"))
+      .replace(/\{\{apply}}/g, apply.split("\n").map(t => "  " + t).join("\n"));
+
+  return result;
 }
 
-export function moveToFront(text: string): string {  
-  const lines: string[] = text.split('\n');  
+export function moveToFront(text: string): string {
+  const lines: string[] = text.split('\n');
   const specialLines: string[] = []; // 用于存放以import或export const 开头的行  
-  const otherLines: string[] = [];  
-  
+  const otherLines: string[] = [];
+
   // 定义类型  
-  enum LineType {  
-    Import,  
-    Export,  
-    Other  
-  }  
-  
-  for (const line of lines) {  
+  enum LineType {
+    Import,
+    Export,
+    Other
+  }
+
+  for (const line of lines) {
     const trimmedLine = line.trimLeft(); // 去除行开头的空格  
-    const lineType: LineType = trimmedLine.startsWith('import') ? LineType.Import : trimmedLine.startsWith('export const') ? LineType.Export : LineType.Other;  
-      
-    if (lineType === LineType.Import || lineType === LineType.Export) {  
-      specialLines.push(trimmedLine);  
-    } else {  
-      otherLines.push(line);  
-    }  
-  }  
-    
+    const lineType: LineType = trimmedLine.startsWith('import') ? LineType.Import : trimmedLine.startsWith('export const') ? LineType.Export : LineType.Other;
+
+    if (lineType === LineType.Import || lineType === LineType.Export) {
+      specialLines.push(trimmedLine);
+    } else {
+      otherLines.push(line);
+    }
+  }
+
   // 根据类型进行排序，保持原始顺序  
-  specialLines.sort((a, b) => {  
-    if (a.startsWith('import') && b.startsWith('export const')) {  
+  specialLines.sort((a, b) => {
+    if (a.startsWith('import') && b.startsWith('export const')) {
       return 0; // 保持不变的顺序  
-    } else if (a.startsWith('import')) {  
+    } else if (a.startsWith('import')) {
       return -1; // 以import开头的行排在前面  
-    } else if (b.startsWith('import')) {  
+    } else if (b.startsWith('import')) {
       return 1; // 以export const 开头的行排在后面  
-    } else {  
+    } else {
       return 0; // 保持不变的顺序  
-    }  
-  });  
-    
-  const sortedText: string = specialLines.concat(otherLines).join('\n');  
-  return sortedText;  
+    }
+  });
+
+  const sortedText: string = specialLines.concat(otherLines).join('\n');
+  return sortedText;
 }
 
-export function build(name,plugin_id,workspace:Workspace){
-  let currentImportMap = {}
-  const blocks = workspace.getAllBlocks(false)
-  blocks.filter(b=>b['imports']).map(b=>b['imports']).forEach(t=>{
-    [...Object.entries(t)].forEach(([i,j])=>{
-      if(!currentImportMap[i]) currentImportMap[i] = []
-      currentImportMap[i] = deduplicate([...currentImportMap[i],...j as any])
-    })
-  })
-  const templates = [];
-  blocks.filter(b=>b['template']).map(b=>b['template']).forEach(t=>{
-    t.forEach(t=>{
-      if(!templates.includes(t)) templates.push(t)
-    })
-  })
+export function build(name, plugin_id, workspace: Workspace) {
+  let currentImportMap = {};
+  const blocks = workspace.getAllBlocks(false);
 
-  let a = createWrapper(currentImportMap,name,[],templates.map(t=>TemplateCodes[t]+"\n").map(t=>t.replace('{{name}}',name).replace("{{plugin_id}}",plugin_id)).join("")+javascriptGenerator.workspaceToCode(workspace))
-  return moveToFront(a)
+  // 处理 imports 属性
+  blocks.filter(b => b['imports'])
+    .forEach(b => {
+      Object.entries(b['imports']).forEach(([key, value]) => {
+        if (!currentImportMap[key]) currentImportMap[key] = [];
+        currentImportMap[key] = deduplicate([...currentImportMap[key], ...value]);
+      });
+    });
+
+  // 处理 template 属性
+  const templates = blocks.filter(b => b['template'])
+    .map(b => b['template'])
+    .reduce((acc, t) => acc.concat(t), [])
+    .filter((value, index, self) => self.indexOf(value) === index); // 去重
+
+  // 处理 injects 属性
+  const injects = blocks.filter(b => b['injects'])
+    .map(b => b['injects'])
+    .reduce((acc, t) => acc.concat(t), [])
+    .filter((value, index, self) => self.indexOf(value) === index); // 去重
+  console.log(injects)
+  console.log(blocks)
+  let wrapperCode = createWrapper(currentImportMap, name, injects,
+    templates.map(t => TemplateCodes[t] + "\n")
+      .map(t => t.replace('{{name}}', name)
+        .replace("{{plugin_id}}", plugin_id))
+      .join("") + javascriptGenerator.workspaceToCode(workspace));
+
+  return moveToFront(wrapperCode);
 }
