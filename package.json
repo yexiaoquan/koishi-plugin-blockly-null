@@ -43,10 +43,10 @@
       "dist"
     ],
     "description": {
-      "zh": "Blockly的fork版,多了一些奇怪的块",
-      "en": "A forked version of Blockly with some strange new blocks",
-      "ja": "いくつかの奇妙なブロックが追加されたBlocklyのフォーク版",
-      "ko": "몇 가지 이상한 블록이 추가된 Blockly의 포크 버전"
+      "zh": "Blockly的fork版，修复部分问题，并且扩展部分blockly块",
+      "en": "A forked version of Blockly, fixing some issues and extending some Blockly blocks.",
+      "ja": "Blocklyのフォーク版で、いくつかの問題を修正し、一部のBlocklyブロックを拡張しました。",
+      "ko": "일부 문제를 수정하고 일부 Blockly 블록을 확장한 Blockly의 포크 버전입니다."
     },
     "service": {
       "required": [
