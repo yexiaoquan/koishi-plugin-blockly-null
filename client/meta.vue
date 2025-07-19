@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {computed, ref,watch,toRaw} from "vue";
-import {store} from "@koishijs/client";
+import {computed, ref,watch,toRaw, onMounted} from "vue";
+import {store, send} from "@koishijs/client";
 import * as Blockly from "blockly";
 import AuthorDialog from './components/dialogs/author.vue'
 import {workspaces} from "blockly/core/serialization";
@@ -13,7 +13,33 @@ const props : {workspace?:WorkspaceSvg,current?:any} = defineProps(['current','w
 
 const commandBlocks = ref([])
 
-const blockUUID = computed(()=>store.blockly.find(t=>t.id.toString() === props.current?.toString()))
+// 添加本地数据存储
+const localBlocklyData = ref([])
+
+// 获取数据函数
+const fetchBlocklyData = async () => {
+  try {
+    const response = await send('get-all-blockly-blocks')
+    return response
+  } catch (error) {
+    console.error('获取meta页面插件数据失败:', error)
+    return null
+  }
+}
+
+// 刷新数据函数
+const refreshData = async () => {
+  const freshData = await fetchBlocklyData()
+  if (freshData && Array.isArray(freshData)) {
+    localBlocklyData.value = freshData
+  }
+}
+
+const blockUUID = computed(()=>{
+  // 优先从本地数据中查找，如果没有则从store中查找
+  const allBlocks = localBlocklyData.value.length > 0 ? localBlocklyData.value : store.blockly
+  return allBlocks.find(t=>t.id.toString() === props.current?.toString())
+})
 const meta = ref({
   author:undefined,
   description:"",
@@ -82,6 +108,11 @@ function createTable(){
 const commandBlockNames = computed(()=>commandBlocks.value.map(t=>t.getFieldValue('name')))
 
 const mergedCommandBlockNames = computed(()=>deduplicate([...commandBlockNames.value,...Object.keys(meta.value.commands)]))
+
+// 组件挂载时初始化数据
+onMounted(async () => {
+  await refreshData()
+})
 
 
 </script>

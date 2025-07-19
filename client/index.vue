@@ -3,10 +3,10 @@
   <ExportDialog v-model="dialogOpenStates.export"></ExportDialog>
   <k-layout class="page-blockly">
     <template #header>
-        Blockly - {{store.blockly.filter((v)=>v.id?.toString()===currentId?.toString())?.[0]?.name ?? '主页'}} {{saving?'保存中...':''}}
+        Blockly - {{getCurrentPluginName()}} {{saving?'保存中...':''}}
     </template>
     <template #left>
-      <SideBar :blocks="store.blockly" v-model:current="currentId" :workspace="editor" :panel="blocklyToolboxInformation" :dialog="dialogOpenStates" :logger="build_console"/>
+      <SideBar :key="forceUpdate" :blocks="mainLocalBlocklyData.length > 0 ? mainLocalBlocklyData : store.blockly" v-model:current="currentId" :workspace="editor" :panel="blocklyToolboxInformation" :dialog="dialogOpenStates" :logger="build_console" :refresh-main="refreshMainData"/>
     </template>
     <div style="display:flex;flex-flow:column nowrap;height: 100%;width: 100%">
     <div style="height: 100%; display: flex;flex-flow: column">
@@ -91,6 +91,45 @@ const workspaceType = ref('blockly')
 const flow = ref({})
 const build_console = ref(null)
 
+// 添加强制刷新变量
+const forceUpdate = ref(0)
+// 主页面的本地数据存储
+const mainLocalBlocklyData = ref([])
+
+// 获取数据函数
+const fetchMainBlocklyData = async () => {
+  try {
+    const response = await send('get-all-blockly-blocks')
+    return response
+  } catch (error) {
+    console.error('获取主页面插件数据失败:', error)
+    return null
+  }
+}
+
+// 刷新数据函数
+const refreshMainData = async () => {
+  try {
+    const freshData = await fetchMainBlocklyData()
+    if (freshData && Array.isArray(freshData)) {
+      mainLocalBlocklyData.value = freshData
+    }
+    forceUpdate.value++
+  } catch (error) {
+    console.error('刷新主页面数据失败:', error)
+  }
+}
+
+// 获取当前插件名称的函数
+const getCurrentPluginName = () => {
+  if (!currentId.value) return '主页'
+  
+  // 优先从本地数据中查找，如果没有则从store中查找
+  const allBlocks = mainLocalBlocklyData.value.length > 0 ? mainLocalBlocklyData.value : store.blockly
+  const plugin = allBlocks.find(v => v.id?.toString() === currentId.value?.toString())
+  return plugin?.name ?? '未命名Koishi代码'
+}
+
 const currentPanelId = ref('hidden')
 let blocklyToolboxInformation = ref({
   build:'点击左侧"编译插件"查看'
@@ -111,7 +150,10 @@ function save(){
     saveTimer = null
   },1000);
 }
-onMounted(()=>{
+onMounted(async ()=>{
+    // 初始化时获取数据
+    await refreshMainData()
+    
     watch(currentId,async (r,s)=>{
       if(!r)return;
       loading.value=true;
@@ -142,6 +184,7 @@ async function importBlockly(content,asNewPlugin){
   if(!newPluginId){
     return
   }
+  await refreshMainData() // 刷新数据
   currentId.value = newPluginId
 }
 
