@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import BlocklyTabGroup from '../blockly-tab-group.vue'
-  import {computed} from "vue";
-  import { store} from "@koishijs/client";
+  import {computed, ref, nextTick, onMounted} from "vue";
+  import { store, send} from "@koishijs/client";
   import {ElMessageBox} from "element-plus";
   import ImportIcon from "../../icons/import.vue"
   import NewFile from "../../icons/new-file.vue";
@@ -21,6 +21,10 @@
 
   const { panel,blocks } = props
 
+  // 创建本地数据存储作为主要数据源
+  const localBlocklyData = ref([])
+  const forceUpdate = ref(0)
+
   const current = computed({
     get:()=>props.current,
     set:(val)=>$emit('update:current',val)
@@ -31,13 +35,43 @@
     set:(val)=>$emit('update:dialog',val)
   })
 
+  // 直接获取数据的函数
+  const fetchBlocklyData = async () => {
+    try {
+      const response = await send('get-all-blockly-blocks')
+      return response
+    } catch (error) {
+      console.error('获取插件数据失败:', error)
+      return null
+    }
+  }
+
+  // 刷新数据函数
+  const refreshData = async () => {
+    const freshData = await fetchBlocklyData()
+    if (freshData && Array.isArray(freshData)) {
+      localBlocklyData.value = freshData
+      forceUpdate.value++
+      await nextTick()
+    }
+  }
+
   const buildBlockly = async ()=> {
     await saveBlockly(current.value,props.workspace)
     if (current.value == undefined) {
       return
     }
-    const block = store.blockly.find(t=>t.id==current.value)
-    const result = await build(current.value, block.name,block.uuid, props.workspace,props.logger.logger)
+    
+    // 优先从本地数据中查找，如果没有则从store中查找
+    const allBlocks = localBlocklyData.value.length > 0 ? localBlocklyData.value : store.blockly
+    const block = allBlocks.find(t=>t.id==current.value)
+    
+    if (!block) {
+      console.error('找不到插件数据，ID:', current.value)
+      return
+    }
+    
+    const result = await build(current.value, block.name, block.uuid, props.workspace, props.logger.logger)
     if (result) {
       panel.code = result
     }
@@ -45,8 +79,10 @@
 
   async function renameBlockly(){
     const name = prompt('输入重命名的插件名词','未命名Koishi插件')
-    if(name!=null)
+    if(name!=null) {
       await rename(current.value,name)
+      await refreshData() // 刷新数据
+    }
   }
 
   async function deleteBlockly() {
@@ -55,6 +91,8 @@
     }
     if(await ElMessageBox.confirm("确定删除当前插件?") === 'confirm'){
       await __delete(current.value)
+      current.value = undefined // 清空当前选择
+      await refreshData() // 刷新数据
     }
   }
 
@@ -62,16 +100,36 @@
     if(current.value==undefined){
       return
     }
-    const block = store.blockly.find(t=>t.id==current.value)
-    const result = await _export(current.value, block.name,block.uuid,props.workspace)
+    
+    // 优先从本地数据中查找，如果没有则从store中查找
+    const allBlocks = localBlocklyData.value.length > 0 ? localBlocklyData.value : store.blockly
+    const block = allBlocks.find(t=>t.id==current.value)
+    
+    if (!block) {
+      console.error('找不到插件数据，ID:', current.value)
+      return
+    }
+    
+    const result = await _export(current.value, block.name, block.uuid, props.workspace)
     if(result){
       dialog.value.export = result
     }
   }
 
   async function createBlockly(){
-    $emit('update:current',await create())
+    const newId = await create()
+    await refreshData() // 刷新数据
+    
+    // 等待一小段时间确保数据更新完成
+    setTimeout(() => {
+      $emit('update:current', newId)
+    }, 100)
   }
+
+  // 组件挂载时初始化数据
+  onMounted(async () => {
+    await refreshData()
+  })
 
 
 </script>
@@ -104,7 +162,7 @@
   </div>
   <div class="list" style="height: 60%">
     <el-scrollbar>
-      <blockly-tab-group :data="Object.fromEntries(store.blockly.map(t=>[t.id,t]))" v-model="current">
+      <blockly-tab-group :key="forceUpdate" :data="Object.fromEntries((localBlocklyData.length > 0 ? localBlocklyData : store.blockly).map(t=>[t.id,t]))" v-model="current">
       </blockly-tab-group>
     </el-scrollbar>
   </div>
@@ -114,8 +172,8 @@
       
       <k-button @click="buildBlockly()">编译插件</k-button>
       <br>
-      <k-button @click="()=>enableBlockly(current)">启用插件</k-button>
-      <k-button @click="()=>disableBlockly(current)">禁用插件</k-button>
+      <k-button @click="async ()=>{await enableBlockly(current); await refreshData()}">启用插件</k-button>
+      <k-button @click="async ()=>{await disableBlockly(current); await refreshData()}">禁用插件</k-button>
       <br>
 
       <k-button @click="renameBlockly()">重命名插件</k-button>

@@ -1,18 +1,22 @@
 {
   "name": "koishi-plugin-blockly-null",
   "description": "Use blockly to develop a simple koishi plugin",
-  "version": "1.2.14",
+  "version": "1.3.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/yexiaoquan/koishi-plugin-blockly-null"
   },
-  "homepage": "https://blockly.koishi.chat",
+  "homepage": "https://github.com/yexiaoquan/koishi-plugin-blockly-null",
   "files": [
     "lib",
     "dist",
     "media"
+  ],
+  "contributors": [
+    "shangxueink <1919892171@qq.com>",
+    "yexiaoquan <1772935788@qq.com>"
   ],
   "license": "AGPL-3.0",
   "scripts": {
@@ -39,7 +43,10 @@
       "dist"
     ],
     "description": {
-      "zh": "Blockly的fork版,多了一些奇怪的块"
+      "zh": "Blockly的fork版，修复部分问题，并且扩展部分blockly块",
+      "en": "A forked version of Blockly, fixing some issues and extending some Blockly blocks.",
+      "ja": "Blocklyのフォーク版で、いくつかの問題を修正し、一部のBlocklyブロックを拡張しました。",
+      "ko": "일부 문제를 수정하고 일부 Blockly 블록을 확장한 Blockly의 포크 버전입니다."
     },
     "service": {
       "required": [

@@ -10,6 +10,7 @@ declare module '@koishijs/plugin-console' {
     'rename-blockly-block'(id: number, name: string): Promise<void>
     'delete-blockly-block'(id: number): Promise<void>
     'set-blockly-block-state'(id: number, enabled: boolean): Promise<void>
+    'get-all-blockly-blocks'(): Promise<any[]>
   }
 }
 
@@ -67,5 +68,10 @@ export function initializeConsoleApiBacked(ctx: Context) {
   ctx.console.addListener("set-blockly-block-state", async (id, enabled) => {
     await ctx.database.set("blockly", id, { enabled })
     await ctx.blockly.reload(true)
+  }, { authority: 5 })
+
+  ctx.console.addListener("get-all-blockly-blocks", async () => {
+    const blocks = await ctx.database.get('blockly', { id: { $not: -1 } }, ["id", "name", "enabled", "edited", "uuid"])
+    return blocks
   }, { authority: 5 })
 }
