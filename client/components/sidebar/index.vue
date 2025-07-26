@@ -16,7 +16,7 @@
     saveBlockly
   } from "../../api/manager";
 
-  const props = defineProps(['blocks','workspace','dialog','current','panel','logger'])
+  const props = defineProps(['blocks','workspace','dialog','current','panel','logger','refreshMain','refresh-main'])
   const $emit = defineEmits(['update:dialog','update:current'])
 
   const { panel,blocks } = props
@@ -24,6 +24,7 @@
   // 创建本地数据存储作为主要数据源
   const localBlocklyData = ref([])
   const forceUpdate = ref(0)
+  const dataLoaded = ref(false) // 标记数据是否已加载
 
   const current = computed({
     get:()=>props.current,
@@ -51,6 +52,7 @@
     const freshData = await fetchBlocklyData()
     if (freshData && Array.isArray(freshData)) {
       localBlocklyData.value = freshData
+      dataLoaded.value = true // 标记数据已加载
       forceUpdate.value++
       await nextTick()
     }
@@ -62,8 +64,7 @@
       return
     }
     
-    // 优先从本地数据中查找，如果没有则从store中查找
-    const allBlocks = localBlocklyData.value.length > 0 ? localBlocklyData.value : store.blockly
+    const allBlocks = dataLoaded.value ? localBlocklyData.value : store.blockly
     const block = allBlocks.find(t=>t.id==current.value)
     
     if (!block) {
@@ -93,6 +94,7 @@
       await __delete(current.value)
       current.value = undefined // 清空当前选择
       await refreshData() // 刷新数据
+      forceUpdate.value++ // 强制更新组件
     }
   }
 
@@ -101,8 +103,7 @@
       return
     }
     
-    // 优先从本地数据中查找，如果没有则从store中查找
-    const allBlocks = localBlocklyData.value.length > 0 ? localBlocklyData.value : store.blockly
+    const allBlocks = dataLoaded.value ? localBlocklyData.value : store.blockly
     const block = allBlocks.find(t=>t.id==current.value)
     
     if (!block) {
@@ -162,7 +163,7 @@
   </div>
   <div class="list" style="height: 60%">
     <el-scrollbar>
-      <blockly-tab-group :key="forceUpdate" :data="Object.fromEntries((localBlocklyData.length > 0 ? localBlocklyData : store.blockly).map(t=>[t.id,t]))" v-model="current">
+      <blockly-tab-group :key="forceUpdate" :data="Object.fromEntries((dataLoaded ? localBlocklyData : store.blockly).map(t=>[t.id,t]))" v-model="current">
       </blockly-tab-group>
     </el-scrollbar>
   </div>
