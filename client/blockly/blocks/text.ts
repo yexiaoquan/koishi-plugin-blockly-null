@@ -1,7 +1,7 @@
-import {javascriptGenerator} from "blockly/javascript";
-import {TextTemplateIcon} from "../../icons/template";
-import {FieldImage} from "blockly";
-import {ElMessageBox} from "element-plus";
+import { javascriptGenerator } from "blockly/javascript";
+import { TextTemplateIcon } from "../../icons/template";
+import { FieldImage } from "blockly";
+import { ElMessageBox } from "element-plus";
 import templates from "rollup-plugin-visualizer/dist/plugin/template-types";
 export const RegularBlock = {
   "type": "regular",
@@ -27,7 +27,7 @@ export function regularBlockGenerator(block) {
   let text_regular = block.getFieldValue('regular')
   let value_text = javascriptGenerator.valueToCode(block, 'str', javascriptGenerator.ORDER_ATOMIC)
   let reg_exp = text_regular?.match("\/(.*)\/([gmiyusd]*)")
-  return [`(${value_text}).match(new RegExp("${reg_exp[1]}", "${reg_exp[2]}"))`,javascriptGenerator.ORDER_ATOMIC]
+  return [`(${value_text}).match(new RegExp("${reg_exp[1]}", "${reg_exp[2]}"))`, javascriptGenerator.ORDER_ATOMIC]
 }
 
 export const TemplateStringBlock = {
@@ -36,41 +36,41 @@ export const TemplateStringBlock = {
   "args0": [
     {
       "type": "field_image",
-      "name":"edit_template",
+      "name": "edit_template",
       "src": TextTemplateIcon,
       "alt": "编辑模板",
       "width": 25,
       "height": 25
     }
-    ],
+  ],
   "output": null,
   "colour": 160,
-  init(){
-    this.loadSlotsWithTemplate = function(){
+  init() {
+    this.loadSlotsWithTemplate = function () {
       this.inputList
-        .filter((input)=>input.name.startsWith("input_"))
-        .forEach((input)=>this.removeInput(input.name))
-      if(!this.text_template){
+        .filter((input) => input.name.startsWith("input_"))
+        .forEach((input) => this.removeInput(input.name))
+      if (!this.text_template) {
         return;
       }
-      this.text_template.variables.forEach((variable)=>{
+      this.text_template.variables.forEach((variable) => {
         this.appendValueInput(`input_${variable}`)
           .appendField(variable)
       })
     };
-    (this.getField("edit_template") as FieldImage).setOnClickHandler(async (field)=> {
+    (this.getField("edit_template") as FieldImage).setOnClickHandler(async (field) => {
       // Show the editor , wait for the flow engine merged
       const workspace = field.getSourceBlock().workspace
-      this.text_template = await workspace['topLevel'].openDialog('text-template',this.text_template??{variables:[]})
+      this.text_template = await workspace['topLevel'].openDialog('text-template', this.text_template ?? { variables: [] })
       console.info(this.text_template)
       this.loadSlotsWithTemplate()
     })
-    this.saveExtraState = function(){
+    this.saveExtraState = function () {
       return {
-        template:this.text_template
+        template: this.text_template
       }
     }
-    this.loadExtraState = function(state){
+    this.loadExtraState = function (state) {
       this.text_template = state.template
       this.loadSlotsWithTemplate()
     }
@@ -78,17 +78,27 @@ export const TemplateStringBlock = {
 }
 
 export function templateStringBlockGenerator(block) {
-  if(!block.text_template){
-    return ["\"\"",javascriptGenerator.ORDER_ATOMIC]
+  if (!block.text_template || !block.text_template.template) {
+    return ["\"\"", javascriptGenerator.ORDER_ATOMIC]
   }
-  const variables = block.text_template.variables
-  const values = variables.map((variable)=>{
-    return javascriptGenerator.valueToCode(block, `input_${variable}`, javascriptGenerator.ORDER_ATOMIC)
+
+  const template = block.text_template.template as string
+  const variableValues = new Map()
+
+  if (block.text_template.variables) {
+    block.text_template.variables.forEach((variable) => {
+      const value = javascriptGenerator.valueToCode(block, `input_${variable}`, javascriptGenerator.ORDER_ATOMIC)
+      variableValues.set(variable, value || '""')
+    })
+  }
+
+  const processedTemplate = template.replace(/\$\{([^}]+)\}/g, (match, variable) => {
+    const value = variableValues.get(variable)
+    return value ? `\${${value}}` : `\${""}`
   })
-  const template = ((block.text_template.template as string).replace(/\$\{([^}]+)\}/g,(match,variable)=>{
-    return `\${${values[variables.indexOf(variable)]}}`
-  }) as any).replaceAll("\n","\\n").replaceAll("`","\\`")
-  return [`\`${template}\``,javascriptGenerator.ORDER_ATOMIC]
+
+  const escapedTemplate = processedTemplate.replace(/\n/g, "\\n").replace(/`/g, "\\`")
+  return [`\`${escapedTemplate}\``, javascriptGenerator.ORDER_ATOMIC]
 }
 
 export const TextBlocks = [
@@ -97,6 +107,6 @@ export const TextBlocks = [
 ]
 
 export const textBlockGenerators = {
-  "regular":regularBlockGenerator,
-  "template_string":templateStringBlockGenerator
+  "regular": regularBlockGenerator,
+  "template_string": templateStringBlockGenerator
 }
