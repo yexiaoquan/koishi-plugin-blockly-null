@@ -5,6 +5,40 @@ import { Workspace } from "blockly";
 import { Dict, } from "cosmokit";
 import { TemplateCodes } from "./template";
 
+function fixForEachVariableNames(code: string): string {
+  const forEachPattern = /for\s*\(\s*let\s+(_[A-F0-9_]+)_index\s+in\s+(_[A-F0-9_]+)_list\s*\)\s*\{[^}]*const\s+(_[A-F0-9_]+)\s*=/g;
+  let match;
+  const variableMap = new Map<string, string>();
+
+  while ((match = forEachPattern.exec(code)) !== null) {
+    const encodedVarName = match[3];
+    const decodedVarName = decodeVariableName(encodedVarName);
+    if (decodedVarName !== encodedVarName) {
+      variableMap.set(decodedVarName, encodedVarName);
+    }
+  }
+
+  let fixedCode = code;
+  for (const [original, encoded] of variableMap) {
+    fixedCode = fixedCode.replace(new RegExp(escapeRegExp(original), 'g'), encoded);
+  }
+
+  return fixedCode;
+}
+
+function decodeVariableName(encodedName: string): string {
+  try {
+    const withPercent = encodedName.replace(/_/g, '%');
+    return decodeURIComponent(withPercent);
+  } catch (e) {
+    return encodedName;
+  }
+}
+
+function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 export function createWrapper(imports: Dict<any>, name = "", injects = [], apply = "") {
   let result = [...Object.entries(imports)].map(([i, j]) =>
     `import { ${j.join(', ')} } from "${i}"\n`
@@ -82,11 +116,14 @@ export function build(name, plugin_id, workspace: Workspace) {
     .filter((value, index, self) => self.indexOf(value) === index); // 去重
   console.log(injects)
   console.log(blocks)
+  let generatedCode = javascriptGenerator.workspaceToCode(workspace);
+  generatedCode = fixForEachVariableNames(generatedCode);
+
   let wrapperCode = createWrapper(currentImportMap, name, injects,
     templates.map(t => TemplateCodes[t] + "\n")
       .map(t => t.replace('{{name}}', name)
         .replace("{{plugin_id}}", plugin_id))
-      .join("") + javascriptGenerator.workspaceToCode(workspace));
+      .join("") + generatedCode);
 
   return moveToFront(wrapperCode);
 }
