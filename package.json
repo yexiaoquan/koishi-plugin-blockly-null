@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-blockly-null",
   "description": "Use blockly to develop a simple koishi plugin",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "repository": {
