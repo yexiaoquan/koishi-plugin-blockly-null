@@ -1,4 +1,4 @@
-import {javascriptGenerator} from "blockly/javascript";
+import { javascriptGenerator } from "blockly/javascript";
 
 export const SendSessionMessageBlock = {
   "type": "send_session_message",
@@ -15,18 +15,18 @@ export const SendSessionMessageBlock = {
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "extensions":['session_consumer'],
+  "extensions": ['session_consumer'],
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
 };
 
-export function sendSessionMessageBlockGenerator(block){
+export function sendSessionMessageBlockGenerator(block) {
   let value_name = javascriptGenerator.valueToCode(block, 'content', javascriptGenerator.ORDER_ATOMIC);
   return `await session.send(${value_name});\n`;
 }
 export const broadcastBlock = {
-  
+
   "type": "broadcast",
   "message0": "广播 %1 群聊列表 %2 消息内容 %3",
   "args0": [
@@ -48,10 +48,10 @@ export const broadcastBlock = {
   "colour": 230,
   "tooltip": "发送广播消息到指定群聊",
   "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
-  
+
 };
 
-export function broadcastBlockGenerator(block){
+export function broadcastBlockGenerator(block) {
   let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC);
   let value_name1 = javascriptGenerator.valueToCode(block, 'NAME1', javascriptGenerator.ORDER_ATOMIC);
   return `await session.bot.broadcast(${value_name}, ${value_name1});\n`;
@@ -71,13 +71,13 @@ export const ReturnMessageBlock = {
     }
   ],
   "previousStatement": null,
-  "extensions":['session_consumer'],
+  "extensions": ['session_consumer'],
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
 };
 
-export function returnMessageBlockGenerator(block){
+export function returnMessageBlockGenerator(block) {
   let value_name = javascriptGenerator.valueToCode(block, 'content', javascriptGenerator.ORDER_ATOMIC);
   return `return ${value_name};\n`;
 }
@@ -97,10 +97,10 @@ export const bot_sendmessage = {
   "helpUrl": ""
 }
 
-export function bot_sendmessageBlockGenerator(block){
+export function bot_sendmessageBlockGenerator(block) {
   let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC);
-  let code = `await bot.sendMessage(session.channelId , ${value_name})`;
-  return [code,javascriptGenerator.ORDER_NONE];
+  let code = `await session.bot.sendMessage(session.channelId , ${value_name})`;
+  return [code, javascriptGenerator.ORDER_NONE];
 }
 
 export const session_prompt = {
@@ -125,9 +125,9 @@ export const session_prompt = {
 export function session_promptBlockGenerator(block) {
   let value_name = javascriptGenerator.valueToCode(block, 'time', javascriptGenerator.ORDER_ATOMIC)
   let code = `await session.prompt (${value_name})`;
-  return [code,javascriptGenerator.ORDER_NONE];
-  };
-  
+  return [code, javascriptGenerator.ORDER_NONE];
+};
+
 export const MessageBlocks = [
   SendSessionMessageBlock,
   ReturnMessageBlock,
@@ -137,9 +137,9 @@ export const MessageBlocks = [
 ]
 
 export const messageBlocks = {
-  'send_session_message':sendSessionMessageBlockGenerator,
-  'return_message':returnMessageBlockGenerator,
-  'broadcast':broadcastBlockGenerator,
-  'session_prompt':session_promptBlockGenerator,
-  'bot_sendmessage':bot_sendmessageBlockGenerator
+  'send_session_message': sendSessionMessageBlockGenerator,
+  'return_message': returnMessageBlockGenerator,
+  'broadcast': broadcastBlockGenerator,
+  'session_prompt': session_promptBlockGenerator,
+  'bot_sendmessage': bot_sendmessageBlockGenerator
 }
