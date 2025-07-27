@@ -1,4 +1,5 @@
 # koishi-plugin-blockly-null
+[![npm](https://img.shields.io/npm/v/koishi-plugin-blockly-null?style=flat-square)](https://www.npmjs.com/package/koishi-plugin-blockly-null)
 
 
 koishi-plugin-Blockly的fork版,多了一些奇怪的块
