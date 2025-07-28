@@ -1,7 +1,7 @@
 import { DataService } from "@koishijs/plugin-console";
-import { Context } from "koishi";
 import { BlocklyMenuItem } from "./index";
 import { v4 as uuidV4 } from 'uuid'
+import { Context } from "koishi";
 
 declare module '@koishijs/plugin-console' {
   namespace Console {

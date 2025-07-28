@@ -1,6 +1,7 @@
+
+import { Context } from "koishi";
 import path from "path";
 import fs from "fs";
-import { Context } from "koishi";
 
 declare module 'koishi' {
   interface Context {

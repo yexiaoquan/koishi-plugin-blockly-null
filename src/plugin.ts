@@ -1,6 +1,6 @@
 import { Context, ForkScope, Logger, segment } from "koishi";
-import vm from "node:vm";
 import { esModuleToCommonJs } from "./transpiler";
+import vm from "node:vm";
 
 export class PluginManager {
   plugins: string[] = [];

@@ -1,4 +1,4 @@
-import { Service, Dict } from "koishi";
+import { Service, Dict, Context } from "koishi";
 import { PluginManager } from "./plugin";
 import { BlocklyVendor } from "./vendor";
 
@@ -14,7 +14,7 @@ export class BlocklyService extends Service {
 
   vendors: Dict<BlocklyVendor> = {}
 
-  constructor(ctx) {
+  constructor(ctx: Context) {
     super(ctx, 'blockly');
     this.manager = new PluginManager(ctx)
   }
@@ -25,16 +25,21 @@ export class BlocklyService extends Service {
         .filter(t => t.enabled).map(t => t.code)
       this.manager.restart()
     }
-    if (this.ctx['console.blockly']) {
-      await this.ctx['console.blockly'].refresh()
-    }
+
+    this.ctx.inject(['console.blockly'], (ctx) => {
+      if (ctx['console.blockly']) {
+        ctx['console.blockly'].refresh()
+      }
+    })
   }
 
   async registerVendor(vendor: BlocklyVendor) {
     this.vendors[vendor.id] = vendor
 
-    if (this.ctx['console.blockly_console']) {
-      await this.ctx['console.blockly_console'].patch(Object.fromEntries([[vendor.id, vendor]]))
-    }
+    this.ctx.inject(['console.blockly_console'], (ctx) => {
+      if (ctx['console.blockly_console']) {
+        ctx['console.blockly_console'].patch(Object.fromEntries([[vendor.id, vendor]]))
+      }
+    })
   }
 }

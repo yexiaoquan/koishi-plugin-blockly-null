@@ -1,6 +1,7 @@
+
+import { v4 as uuidV4 } from "uuid";
 import { Context } from "koishi";
 import { } from "./structure"
-import { v4 as uuidV4 } from "uuid";
 
 declare module '@koishijs/plugin-console' {
   interface Events {

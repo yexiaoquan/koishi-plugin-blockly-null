@@ -8,7 +8,7 @@ export const TestBlocks = [
         "type": "input_statement",
         "name": "NAME"
       }
-      ],
+    ],
     "previousStatement": null,
     "nextStatement": null,
   },
@@ -20,7 +20,7 @@ export const TestBlocks = [
         "type": "input_statement",
         "name": "NAME"
       }
-      ],
+    ],
 
     "previousStatement": null,
     "nextStatement": null,
@@ -33,7 +33,7 @@ export const TestBlocks = [
         "type": "input_statement",
         "name": "NAME"
       }
-      ],
+    ],
 
     "previousStatement": null,
     "nextStatement": null,

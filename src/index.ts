@@ -1,10 +1,11 @@
-import { Context, Schema } from 'koishi'
-import { resolve } from 'path'
-import { BlocklyService } from "./service";
+
 import { BlocklyProvider, initializeDatabase } from "./data";
 import { initializeConsoleApiBacked } from "./console";
 import { registerStaticFileRoute } from "./static";
 import { BlocklyVendorDataService } from "./vendor";
+import { BlocklyService } from "./service";
+import { Context, Schema } from 'koishi'
+import { resolve } from 'path'
 
 export const name = 'blockly'
 
@@ -13,9 +14,12 @@ export interface Config { }
 export const Config: Schema<Config> = Schema.object({})
 
 export const inject = {
-  optional: ['blockly', 'console.blockly', "puppeteer"],
+  optional: ['blockly', "puppeteer"],
   required: ['database', 'console', 'server']
 };
+export const usage = `
+---
+`;
 
 export async function apply(ctx: Context) {
   ctx.plugin(BlocklyService)
