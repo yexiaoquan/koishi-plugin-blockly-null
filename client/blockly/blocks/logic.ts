@@ -1,4 +1,4 @@
-import {javascriptGenerator} from "blockly/javascript";
+import { javascriptGenerator } from "blockly/javascript";
 
 export const SleepBlock = {
   "type": "sleep",
@@ -19,7 +19,7 @@ export const SleepBlock = {
   "helpUrl": ""
 };
 
-export function sleepBlockGenerator(block){
+export function sleepBlockGenerator(block) {
   let value_name = javascriptGenerator.valueToCode(block, 'milliseconds', javascriptGenerator.ORDER_ATOMIC);
   return `await new Promise(resolve => ctx.setTimeout(resolve, ${value_name}));\n`;
 }

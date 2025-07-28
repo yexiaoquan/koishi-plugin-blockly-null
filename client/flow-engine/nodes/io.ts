@@ -1,4 +1,4 @@
-import {defineNode, NodeInterface, TextInputInterface} from "baklavajs";
+import { defineNode, NodeInterface, TextInputInterface } from "baklavajs";
 export const InputBlock = defineNode({
   type: "输入",
   inputs: {
@@ -25,4 +25,4 @@ export const OutputBlock = defineNode({
 export const IOBlocks = [
   InputBlock,
   OutputBlock
-].map((node) => [node,"输入与输出"]);
+].map((node) => [node, "输入与输出"]);

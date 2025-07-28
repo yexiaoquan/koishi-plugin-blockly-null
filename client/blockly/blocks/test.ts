@@ -1,31 +1,31 @@
-import {javascriptGenerator} from "blockly/javascript";
+import { javascriptGenerator } from "blockly/javascript";
 
 export const test = {
-    "type": "test",
-    "message0": "返回文件列表     输入路经 %1 文件后缀列表 %2",
-    "args0": [
-      {
-        "type": "input_value",
-        "name": "WENJAN",
-      },
-      {
-        "type": "input_value",
-        "name": "NAME1",
-      }
-    ],
-    "inputsInline": false,
-    "output": null,
-    "template":['test'],
-    "colour": 225,
-    "tooltip": "",
-    "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
+  "type": "test",
+  "message0": "返回文件列表     输入路经 %1 文件后缀列表 %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "WENJAN",
+    },
+    {
+      "type": "input_value",
+      "name": "NAME1",
+    }
+  ],
+  "inputsInline": false,
+  "output": null,
+  "template": ['test'],
+  "colour": 225,
+  "tooltip": "",
+  "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
 }
 
 export function pptr_htmlBlockGenerator(block) {
-    let value_name = javascriptGenerator.valueToCode(block, 'WENJAN', javascriptGenerator.ORDER_ATOMIC)
-    let value_name1 = javascriptGenerator.valueToCode(block, 'NAME1', javascriptGenerator.ORDER_ATOMIC)
-    let code = `getFiles(${value_name}, ${value_name1})`;
-    return [code,javascriptGenerator.ORDER_NONE];
+  let value_name = javascriptGenerator.valueToCode(block, 'WENJAN', javascriptGenerator.ORDER_ATOMIC)
+  let value_name1 = javascriptGenerator.valueToCode(block, 'NAME1', javascriptGenerator.ORDER_ATOMIC)
+  let code = `getFiles(${value_name}, ${value_name1})`;
+  return [code, javascriptGenerator.ORDER_NONE];
 }
 
 export const MD5 = {
@@ -38,7 +38,7 @@ export const MD5 = {
     }
   ],
   "output": null,
-  "template":['MD5'],
+  "template": ['MD5'],
   "colour": 225,
   "tooltip": "",
   "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
@@ -47,55 +47,55 @@ export const MD5 = {
 export function MD5BlockGenerator(block) {
   let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC)
   let code = `x_MD5${value_name}`;
-  return [code,javascriptGenerator.ORDER_NONE]; 
+  return [code, javascriptGenerator.ORDER_NONE];
 }
 
 export const toString = {
-    "type": "toString",
-    "message0": "转换为 %1 编码 %2",
-    "args0": [
-      {
-        "type": "field_dropdown",
-        "name": "NAME",
-        "options": [
-          [
-            "utf8",
-            "utf8"
-          ],
-          [
-            "ascii",
-            "ascii"
-          ],
-          [
-            "latin1",
-            "latin1"
-          ],
-          [
-            "hex",
-            "hex"
-          ],          
-          [
-            "base64",
-            "base64"
-          ]
+  "type": "toString",
+  "message0": "转换为 %1 编码 %2",
+  "args0": [
+    {
+      "type": "field_dropdown",
+      "name": "NAME",
+      "options": [
+        [
+          "utf8",
+          "utf8"
+        ],
+        [
+          "ascii",
+          "ascii"
+        ],
+        [
+          "latin1",
+          "latin1"
+        ],
+        [
+          "hex",
+          "hex"
+        ],
+        [
+          "base64",
+          "base64"
         ]
-      },
-      {
-        "type": "input_value",
-        "name": "NAME1"
-      }
-    ],
-    "output": null,
-    "colour": 230,
-    "tooltip": "",
-    "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
+      ]
+    },
+    {
+      "type": "input_value",
+      "name": "NAME1"
+    }
+  ],
+  "output": null,
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
 }
 
 export function toStringBlockGenerator(block) {
   let dropdown_name = block.getFieldValue('NAME')
   let value_name = javascriptGenerator.valueToCode(block, 'NAME1', javascriptGenerator.ORDER_ATOMIC)
   let code = `${value_name}.toString('${dropdown_name}')`;
-  return [code,javascriptGenerator.ORDER_NONE]; 
+  return [code, javascriptGenerator.ORDER_NONE];
 }
 
 export const fetchDataFromUrl = {
@@ -109,7 +109,7 @@ export const fetchDataFromUrl = {
     }
   ],
   "output": null,
-  "template":['fetchDataFromUrl'],
+  "template": ['fetchDataFromUrl'],
   "colour": 225,
   "tooltip": "读取文件，支持http/https/file协议",
   "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
@@ -118,7 +118,7 @@ export const fetchDataFromUrl = {
 export function fetchDataFromUrlBlockGenerator(block) {
   let value_name = javascriptGenerator.valueToCode(block, 'NAME1', javascriptGenerator.ORDER_ATOMIC)
   let code = `await fetchDataFromUrl(${value_name})`;
-  return [code,javascriptGenerator.ORDER_NONE]; 
+  return [code, javascriptGenerator.ORDER_NONE];
 }
 
 export const buffer_from = {
@@ -144,7 +144,7 @@ export const buffer_from = {
         [
           "hex",
           "hex"
-        ],          
+        ],
         [
           "base64",
           "base64"
@@ -168,23 +168,22 @@ export function buffer_fromBlockGenerator(block) {
   let dropdown_name = block.getFieldValue('NAME1')
   let value_name = javascriptGenerator.valueToCode(block, 'NAME', javascriptGenerator.ORDER_ATOMIC)
   let code = `Buffer.from(${value_name}, '${dropdown_name}')`;
-  return [code,javascriptGenerator.ORDER_NONE]; 
+  return [code, javascriptGenerator.ORDER_NONE];
 }
 
 export const testBlocks = [
-    test,
-    MD5,
-    toString,
-    fetchDataFromUrl,
-    buffer_from
+  test,
+  MD5,
+  toString,
+  fetchDataFromUrl,
+  buffer_from
 ]
 
 
 export const testBlockGenerators = {
-    'test':pptr_htmlBlockGenerator,
-    'MD5':MD5BlockGenerator,
-    'toString':toStringBlockGenerator,
-    'fetchDataFromUrl':fetchDataFromUrlBlockGenerator,
-    'buffer_from':buffer_fromBlockGenerator
+  'test': pptr_htmlBlockGenerator,
+  'MD5': MD5BlockGenerator,
+  'toString': toStringBlockGenerator,
+  'fetchDataFromUrl': fetchDataFromUrlBlockGenerator,
+  'buffer_from': buffer_fromBlockGenerator
 }
-  

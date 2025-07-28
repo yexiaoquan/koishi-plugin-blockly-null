@@ -1,6 +1,6 @@
 import * as Blockly from "blockly"
-declare module "blockly"{
-  interface Workspace{
-    meta:any
+declare module "blockly" {
+  interface Workspace {
+    meta: any
   }
 }

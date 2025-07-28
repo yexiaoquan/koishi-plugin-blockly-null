@@ -1,4 +1,4 @@
-import {} from 'koishi-plugin-blockly'
+import { } from 'koishi-plugin-blockly'
 import { Context, icons } from '@koishijs/client'
 import Page from './index.vue'
 import Activity from './icons/activity.vue'
@@ -14,6 +14,6 @@ export default (ctx: Context) => {
     icon: 'blockly',
     authority: 5,
     component: Page,
-    fields:['blockly']
+    fields: ['blockly']
   })
 }

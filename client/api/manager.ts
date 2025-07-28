@@ -1,10 +1,11 @@
-import { send, store } from "@koishijs/client";
+
 import { decodeBlocklyExport, encodeBlocklyExport } from "../blockly/pack";
-import { build, createWrapper } from "../blockly/build";
-import { javascriptGenerator } from "blockly/javascript";
-import * as semver from 'semver'
-import { ElMessageBox } from "element-plus";
 import { BLOCKLY_API_VERSION, BLOCKLY_VERSION } from "../version";
+import { javascriptGenerator } from "blockly/javascript";
+import { build, createWrapper } from "../blockly/build";
+import { send, store } from "@koishijs/client";
+import { ElMessageBox } from "element-plus";
+import * as semver from 'semver'
 
 export const createBlockly = async () => (await send('create-blockly-block')).toString()
 

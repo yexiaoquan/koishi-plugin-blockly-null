@@ -1,6 +1,6 @@
 
-export const import_0 ={
-  
+export const import_0 = {
+
   "type": "import",
   "message0": "import { %1 } from \" %2 \"",
   "args0": [
@@ -29,7 +29,7 @@ export function import_0BlockGenerators(block) {
   return code;
 };
 
-export const export_const ={
+export const export_const = {
 
   "type": "export_const",
   "message0": "export const %1 = %2 ",
@@ -62,8 +62,8 @@ export const importBlocks = [
   import_0,
   export_const
 ]
-  
+
 export const importBlockGenerators = {
-    'import':import_0BlockGenerators,
-    'export_const':export_constBlockGenerators
+  'import': import_0BlockGenerators,
+  'export_const': export_constBlockGenerators
 }

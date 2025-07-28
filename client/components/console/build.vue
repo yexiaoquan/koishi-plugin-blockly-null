@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {defineProps, onMounted, ref} from 'vue'
-import {Terminal} from 'xterm'
+import { defineProps, onMounted, ref } from 'vue'
+import { Terminal } from 'xterm'
 import 'xterm/css/xterm.css'
 const props = defineProps([
   'blocklyInformation',
@@ -10,26 +10,26 @@ const terminal = new Terminal();
 const terminalRef = ref(null)
 
 const logger = {
-  log:(...args)=>{
+  log: (...args) => {
     terminal.writeln(args.join(' '))
   },
-  error:(...args)=>{
-    terminal.writeln('\x1B[1;1;30m['+ (new Date).toLocaleString() +'] \x1B[1;1;31m'+args.join(' ')+'\x1B[0m')
+  error: (...args) => {
+    terminal.writeln('\x1B[1;1;30m[' + (new Date).toLocaleString() + '] \x1B[1;1;31m' + args.join(' ') + '\x1B[0m')
   },
-  warn:(...args)=>{
-    terminal.writeln('\x1B[1;1;30m['+ (new Date).toLocaleString() +'] \x1B[1;1;33m'+args.join(' ')+'\x1B[0m')
+  warn: (...args) => {
+    terminal.writeln('\x1B[1;1;30m[' + (new Date).toLocaleString() + '] \x1B[1;1;33m' + args.join(' ') + '\x1B[0m')
   },
-  success:(...args)=>{
-    terminal.writeln('\x1B[1;1;30m['+ (new Date).toLocaleString() +'] \x1B[1;1;32m'+args.join(' ')+'\x1B[0m')
+  success: (...args) => {
+    terminal.writeln('\x1B[1;1;30m[' + (new Date).toLocaleString() + '] \x1B[1;1;32m' + args.join(' ') + '\x1B[0m')
   },
-  info:(...args)=>{
-    terminal.writeln('\x1B[1;1;30m['+ (new Date).toLocaleString() +'] \x1B[1;1;32m'+args.join(' ')+'\x1B[0m')
+  info: (...args) => {
+    terminal.writeln('\x1B[1;1;30m[' + (new Date).toLocaleString() + '] \x1B[1;1;32m' + args.join(' ') + '\x1B[0m')
   },
-  clear:()=>{
+  clear: () => {
     terminal.clear()
   }
 }
-onMounted(()=>{
+onMounted(() => {
   terminal.open(terminalRef.value)
   logger.info("请点击左侧\"编译插件\"开始编译")
 })
@@ -41,4 +41,3 @@ defineExpose({
 <template>
   <div ref="terminalRef"></div>
 </template>
-

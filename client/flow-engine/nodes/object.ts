@@ -1,15 +1,15 @@
-import {defineDynamicNode, defineNode, NodeInterface, TextInputInterface} from "baklavajs";
+import { defineDynamicNode, defineNode, NodeInterface, TextInputInterface } from "baklavajs";
 
 export const GetObjectProperty = defineNode({
   type: "获取对象属性",
   inputs: {
     object: () => new NodeInterface("对象", 0),
-    property: () => new TextInputInterface("属性","")
+    property: () => new TextInputInterface("属性", "")
   },
   outputs: {
     value: () => new NodeInterface("值", 0)
   },
-  calculate(){
+  calculate() {
     return {}
   }
 })
@@ -18,13 +18,13 @@ export const SetObjectProperty = defineNode({
   type: "设置对象属性",
   inputs: {
     object: () => new NodeInterface("对象", 0),
-    property: () => new TextInputInterface("属性",""),
+    property: () => new TextInputInterface("属性", ""),
     value: () => new TextInputInterface("值", ""),
   },
   outputs: {
     value: () => new NodeInterface("改变后的对象", 0)
   },
-  calculate(input,ctx){
+  calculate(input, ctx) {
     return {}
   }
 });
@@ -37,9 +37,9 @@ export const CreateObject = defineDynamicNode({
   outputs: {
     value: () => new NodeInterface("对象", 0)
   },
-  onUpdate(){
+  onUpdate() {
     return {
-      inputs: Object.fromEntries(this.inputs.prototype.value?.split(",").filter(t=>t).map((name) => [name, () => new NodeInterface(name, 0)]))
+      inputs: Object.fromEntries(this.inputs.prototype.value?.split(",").filter(t => t).map((name) => [name, () => new NodeInterface(name, 0)]))
     }
   }
 })
@@ -50,9 +50,9 @@ export const SplitObject = defineDynamicNode({
     value: () => new NodeInterface("对象", 0),
     prototype: () => new TextInputInterface("原型，用逗号分隔", "").setPort(false)
   },
-  onUpdate(){
+  onUpdate() {
     return {
-      outputs: Object.fromEntries(this.inputs.prototype.value?.split(",").filter(t=>t).map((name) => [name, () => new NodeInterface(name, 0)]))
+      outputs: Object.fromEntries(this.inputs.prototype.value?.split(",").filter(t => t).map((name) => [name, () => new NodeInterface(name, 0)]))
     }
   }
 })
@@ -62,4 +62,4 @@ export const ObjectNodes = [
   SplitObject,
   GetObjectProperty,
   SetObjectProperty
-].map((node) => [node,"对象"]);
+].map((node) => [node, "对象"]);

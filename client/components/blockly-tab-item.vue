@@ -1,10 +1,9 @@
 <template>
-  <div class="k-tab-item k-menu-item"
-       :class="{ active: value === modelValue }"
-       @click="$emit('update:modelValue', value)">
+  <div class="k-tab-item k-menu-item" :class="{ active: value === modelValue }"
+    @click="$emit('update:modelValue', value)">
     <slot>
       {{ label.name }}
-      <span :class="{ dot: true, enabled: label.enabled , edited:label.edited }"></span>
+      <span :class="{ dot: true, enabled: label.enabled, edited: label.edited }"></span>
     </slot>
   </div>
 </template>
@@ -34,8 +33,10 @@ defineProps<{
     background-color: var(--hover-bg);
   }
 }
+
 $size: 8px;
-.dot{
+
+.dot {
   display: inline-block;
   width: $size;
   height: $size;

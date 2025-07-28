@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {computed, ref, watch} from "vue";
+import { computed, ref, watch } from "vue";
 
 const content = ref({
   name: '',
@@ -8,40 +8,40 @@ const content = ref({
 
 const model = defineProps(["modelValue"])
 
-const $emit = defineEmits(['update:modelValue','callback'])
+const $emit = defineEmits(['update:modelValue', 'callback'])
 
 const visible = ref<any>(false)
 
-function execute(){
-  if(!content.value.name || !content.value.email){
+function execute() {
+  if (!content.value.name || !content.value.email) {
     return
   }
-  if(!content.value.name.match(/^[A-Za-z0-9_-]+$/)){
+  if (!content.value.name.match(/^[A-Za-z0-9_-]+$/)) {
     alert('作者名称只能包含英文、数字、下划线和中划线')
     return
   }
-  if(!content.value.email.match(/^[A-Za-z0-9_-]+@[A-Za-z0-9_\-.]+$/)){
+  if (!content.value.email.match(/^[A-Za-z0-9_-]+@[A-Za-z0-9_\-.]+$/)) {
     alert('作者邮箱格式不正确')
     return
   }
-  $emit('update:modelValue',false)
-  $emit('callback',content.value.name+'<'+content.value.email+'>')
+  $emit('update:modelValue', false)
+  $emit('callback', content.value.name + '<' + content.value.email + '>')
   content.value.name = undefined
   content.value.email = undefined
 }
 
-watch(model,(newValue)=>{
+watch(model, (newValue) => {
   visible.value = !!model.modelValue;
   const regex = /^([A-Za-z0-9_-]+)<([A-Za-z0-9_-]+@[A-Za-z0-9_\-.]+)>$/
   const match = regex.exec(model.modelValue)
-  if(match){
+  if (match) {
     content.value.name = match[1]
     content.value.email = match[2]
   }
 });
 
-watch(visible,(newValue)=>{
-  $emit('update:modelValue',newValue?newValue:undefined)
+watch(visible, (newValue) => {
+  $emit('update:modelValue', newValue ? newValue : undefined)
 })
 
 
@@ -60,19 +60,11 @@ watch(visible,(newValue)=>{
           <div class="author-dialog-body">
             <div class="form-item">
               <label>作者名称</label>
-              <input 
-                v-model="content.name" 
-                placeholder="请使用英文名称" 
-                class="author-input"
-              />
+              <input v-model="content.name" placeholder="请使用英文名称" class="author-input" />
             </div>
             <div class="form-item">
               <label>作者邮箱</label>
-              <input 
-                v-model="content.email" 
-                placeholder="作者邮箱" 
-                class="author-input"
-              />
+              <input v-model="content.email" placeholder="作者邮箱" class="author-input" />
             </div>
           </div>
           <div class="author-dialog-footer">

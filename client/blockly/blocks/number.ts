@@ -1,4 +1,4 @@
-import {javascriptGenerator} from "blockly/javascript";
+import { javascriptGenerator } from "blockly/javascript";
 
 export const ToNumberBlock = {
   "type": "to_number",
@@ -16,7 +16,7 @@ export const ToNumberBlock = {
   "helpUrl": ""
 }
 
-export function toNumberBlockGenerator(block){
+export function toNumberBlockGenerator(block) {
   let value = javascriptGenerator.valueToCode(block, 'value', javascriptGenerator.ORDER_ATOMIC)
   return [`Number(${value})`, javascriptGenerator.ORDER_ATOMIC];
 }

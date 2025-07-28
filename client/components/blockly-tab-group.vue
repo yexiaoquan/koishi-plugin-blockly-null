@@ -1,7 +1,7 @@
 <template>
   <template v-for="(item, key) in data" :key="key">
     <blockly-tab-item v-model="model" :label="item" :value="key" v-if="filter ? filter(key) : true">
-      <slot v-bind="{id:item}"></slot>
+      <slot v-bind="{ id: item }"></slot>
     </blockly-tab-item>
   </template>
 </template>
@@ -28,6 +28,7 @@ const model = computed({
   padding: 0 2rem !important;
   font-weight: bold;
 }
+
 .k-tab-group-title:not(.k-select-item) {
   margin-top: 0.5rem;
 }

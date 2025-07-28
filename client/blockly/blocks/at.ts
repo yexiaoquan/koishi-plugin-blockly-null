@@ -1,4 +1,4 @@
-import {javascriptGenerator} from "blockly/javascript";
+import { javascriptGenerator } from "blockly/javascript";
 
 export const at_id = {
   "type": "at_id",
@@ -9,9 +9,9 @@ export const at_id = {
   "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
 }
 
-export function at_idBlockGenerator(block){
+export function at_idBlockGenerator(block) {
   let code = `session.elements.filter((element) => element.type == 'at')?.[0].attrs.id`;
-  return [code,javascriptGenerator.ORDER_NONE];
+  return [code, javascriptGenerator.ORDER_NONE];
 }
 
 export const at_name = {
@@ -22,10 +22,10 @@ export const at_name = {
   "tooltip": "",
   "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
 }
-  
-export function at_nameBlockGenerator(block){
+
+export function at_nameBlockGenerator(block) {
   let code = `session.elements.filter((element) => element.type == 'at')?.[0].attrs.name`;
-  return [code,javascriptGenerator.ORDER_NONE];
+  return [code, javascriptGenerator.ORDER_NONE];
 }
 export const group_name = {
   "type": "group_name",
@@ -35,10 +35,10 @@ export const group_name = {
   "tooltip": "",
   "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
 }
-  
-export function   group_nameBlockGenerator(block){
+
+export function group_nameBlockGenerator(block) {
   let code = `session.event.guild.name`;
-  return [code,javascriptGenerator.ORDER_NONE];
+  return [code, javascriptGenerator.ORDER_NONE];
 }
 export const group_id = {
   "type": "group_id",
@@ -48,10 +48,10 @@ export const group_id = {
   "tooltip": "",
   "helpUrl": "https://forum.koishi.xyz/t/topic/6245"
 }
-  
-export function   group_idBlockGenerator(block){
+
+export function group_idBlockGenerator(block) {
   let code = `session.event.guild.id`;
-  return [code,javascriptGenerator.ORDER_NONE];
+  return [code, javascriptGenerator.ORDER_NONE];
 }
 
 export const atBlocks = [
@@ -60,10 +60,10 @@ export const atBlocks = [
   group_name,
   group_id
 ]
-    
+
 export const atBlockGenerators = {
-  'at_id':at_idBlockGenerator,
-  'at_name':at_nameBlockGenerator,
+  'at_id': at_idBlockGenerator,
+  'at_name': at_nameBlockGenerator,
   'group_name': group_nameBlockGenerator,
   'group_id': group_idBlockGenerator
 }

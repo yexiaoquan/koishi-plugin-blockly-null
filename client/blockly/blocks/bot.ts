@@ -1,4 +1,4 @@
-import {javascriptGenerator} from "blockly/javascript";
+import { javascriptGenerator } from "blockly/javascript";
 
 export const DeleteMessageBlock = {
   "type": "delete_message",
@@ -28,7 +28,7 @@ export const DeleteMessageBlock = {
   "helpUrl": ""
 }
 
-export function deleteMessageBlockGenerator(block){
+export function deleteMessageBlockGenerator(block) {
   let bot = javascriptGenerator.valueToCode(block, 'bot', javascriptGenerator.ORDER_ATOMIC)
   let message_id = javascriptGenerator.valueToCode(block, 'message_id', javascriptGenerator.ORDER_ATOMIC)
   let channel_id = javascriptGenerator.valueToCode(block, 'channel_id', javascriptGenerator.ORDER_ATOMIC)
@@ -67,7 +67,7 @@ export const MuteUserBlock = {
   "helpUrl": ""
 }
 
-export function muteUserGenerator(block){
+export function muteUserGenerator(block) {
   let bot = javascriptGenerator.valueToCode(block, 'bot', javascriptGenerator.ORDER_ATOMIC)
   let user_id = javascriptGenerator.valueToCode(block, 'user_id', javascriptGenerator.ORDER_ATOMIC)
   let guild_id = javascriptGenerator.valueToCode(block, 'guild_id', javascriptGenerator.ORDER_ATOMIC)
@@ -81,6 +81,6 @@ export const BotBlocks = [
 ]
 
 export const botBlockGenerators = {
-  'delete_message':deleteMessageBlockGenerator,
-  'mute_user':muteUserGenerator
+  'delete_message': deleteMessageBlockGenerator,
+  'mute_user': muteUserGenerator
 }

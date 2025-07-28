@@ -1,1 +1,1 @@
-export const inject = {required: ["puppeteer"]}
+export const inject = { required: ["puppeteer"] }

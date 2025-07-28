@@ -1,5 +1,5 @@
-import {defineNode} from "@baklavajs/core";
-import {NodeInterface, TextInputInterface} from "baklavajs";
+import { defineNode } from "@baklavajs/core";
+import { NodeInterface, TextInputInterface } from "baklavajs";
 
 
 export const Queue = defineNode({
@@ -16,4 +16,4 @@ export const Queue = defineNode({
 
 export const Structure = [
   Queue
-].map((node) => [node,"数据结构"]);
+].map((node) => [node, "数据结构"]);

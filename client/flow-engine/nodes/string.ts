@@ -1,5 +1,5 @@
-import {NodeInterface} from "@baklavajs/core";
-import {TextInputInterface, defineDynamicNode} from "baklavajs";
+import { NodeInterface } from "@baklavajs/core";
+import { TextInputInterface, defineDynamicNode } from "baklavajs";
 
 export const StringTemplateNode = defineDynamicNode({
   type: "字符串模板",
@@ -9,7 +9,7 @@ export const StringTemplateNode = defineDynamicNode({
   outputs: {
     value: () => new NodeInterface("输出", ""),
   },
-  onUpdate({template}) {
+  onUpdate({ template }) {
     const matches = template.match(/%.+?%/g)
     return {
       inputs: matches ? Object.fromEntries(matches.map(t => t.slice(1, -1)).map(t => [t, () => new TextInputInterface(t, "")])) : undefined

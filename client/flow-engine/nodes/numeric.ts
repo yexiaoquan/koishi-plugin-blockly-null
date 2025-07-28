@@ -1,5 +1,5 @@
-import {TextInputInterface} from "baklavajs";
-import {defineNode, NodeInterface} from "@baklavajs/core";
+import { TextInputInterface } from "baklavajs";
+import { defineNode, NodeInterface } from "@baklavajs/core";
 
 export const ConstNumber = defineNode({
   type: "数字常量/转为数字",
@@ -13,4 +13,4 @@ export const ConstNumber = defineNode({
 
 export const NumericNodes = [
   ConstNumber
-].map((node) => [node,"数字"]);
+].map((node) => [node, "数字"]);

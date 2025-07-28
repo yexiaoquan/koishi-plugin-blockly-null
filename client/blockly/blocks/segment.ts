@@ -1,4 +1,4 @@
-import {javascriptGenerator} from "blockly/javascript";
+import { javascriptGenerator } from "blockly/javascript";
 
 export const SegmentAtBlock = {
   "type": "segment_at",
@@ -11,15 +11,15 @@ export const SegmentAtBlock = {
     }
   ],
   "output": "String",
-  "imports":{koishi:['h']},
+  "imports": { koishi: ['h'] },
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
 }
 
-export function segmentAtBlockGenerator(block){
+export function segmentAtBlockGenerator(block) {
   let user = javascriptGenerator.valueToCode(block, 'user', javascriptGenerator.ORDER_ATOMIC);
-  return [`h('at',{ id: ${user} })`,javascriptGenerator.ORDER_NONE];
+  return [`h('at',{ id: ${user} })`, javascriptGenerator.ORDER_NONE];
 }
 
 export const SegmentImageBlock = {
@@ -33,15 +33,15 @@ export const SegmentImageBlock = {
     }
   ],
   "output": "String",
-  "imports":{koishi:['h']},
+  "imports": { koishi: ['h'] },
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
 }
 
-export function segmentImageBlockGenerator(block){
+export function segmentImageBlockGenerator(block) {
   let image = javascriptGenerator.valueToCode(block, 'image', javascriptGenerator.ORDER_ATOMIC);
-  return [`h('image',{ url: ${image} })`,javascriptGenerator.ORDER_NONE];
+  return [`h('image',{ url: ${image} })`, javascriptGenerator.ORDER_NONE];
 }
 
 export const SegmentAudioBlock = {
@@ -55,16 +55,16 @@ export const SegmentAudioBlock = {
     }
   ],
   "output": "String",
-  "imports":{koishi:['h']},
+  "imports": { koishi: ['h'] },
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
 }
 
 
-export function segmentAudioBlockGenerator(block){
+export function segmentAudioBlockGenerator(block) {
   let audio = javascriptGenerator.valueToCode(block, 'audio', javascriptGenerator.ORDER_ATOMIC);
-  return [`h('audio',{ url: ${audio} })`,javascriptGenerator.ORDER_NONE]
+  return [`h('audio',{ url: ${audio} })`, javascriptGenerator.ORDER_NONE]
 }
 
 export const SegmentVideoBlock = {
@@ -78,16 +78,16 @@ export const SegmentVideoBlock = {
     }
   ],
   "output": "String",
-  "imports":{koishi:['h']},
+  "imports": { koishi: ['h'] },
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
 }
 
 
-export function segmentVideoBlockGenerator(block){
+export function segmentVideoBlockGenerator(block) {
   let video = javascriptGenerator.valueToCode(block, 'video', javascriptGenerator.ORDER_ATOMIC);
-  return [`h('video',{ url: ${video} })`,javascriptGenerator.ORDER_NONE]
+  return [`h('video',{ url: ${video} })`, javascriptGenerator.ORDER_NONE]
 }
 
 export const ParseSegmentListBlock = {
@@ -102,7 +102,7 @@ export const ParseSegmentListBlock = {
   "colour": 230,
   "tooltip": "",
   "helpUrl": "",
-  "inputsInline":false,
+  "inputsInline": false,
   "mutator": "segment_parser",
   "previousStatement": null,
   "nextStatement": null,
@@ -112,7 +112,7 @@ export function parseSegmentListBlockGenerator(block) {
   let segment = javascriptGenerator.valueToCode(block, 'segments', javascriptGenerator.ORDER_ATOMIC);
   let branches = block.inputList.filter(field => field.name.startsWith("branch_type_")).map(field => field.name.substring(12));
   let types = Object.fromEntries(branches.map(branch => [branch, block.getFieldValue(`branch_type_${branch}_selector`)]));
-  let statements = Object.fromEntries(branches.map(branch => [branch, javascriptGenerator.statementToCode(block,`branch_action_${branch}`, javascriptGenerator.ORDER_ATOMIC)]));
+  let statements = Object.fromEntries(branches.map(branch => [branch, javascriptGenerator.statementToCode(block, `branch_action_${branch}`, javascriptGenerator.ORDER_ATOMIC)]));
   return `for(let current_segment of ${segment}){
   switch(segment.type){
     ${Object.entries(types).map(([branch, type]) => `case '${type}':
@@ -144,10 +144,10 @@ export const SegmentBlocks = [
 ]
 
 export const segmentBlockGenerators = {
-  'segment_at':segmentAtBlockGenerator,
-  'segment_image':segmentImageBlockGenerator,
-  'segment_audio':segmentAudioBlockGenerator,
-  'segment_video':segmentVideoBlockGenerator,
-  'parse_segment_list':parseSegmentListBlockGenerator,
-  'current_segment':currentSegmentBlockGenerator
+  'segment_at': segmentAtBlockGenerator,
+  'segment_image': segmentImageBlockGenerator,
+  'segment_audio': segmentAudioBlockGenerator,
+  'segment_video': segmentVideoBlockGenerator,
+  'parse_segment_list': parseSegmentListBlockGenerator,
+  'current_segment': currentSegmentBlockGenerator
 }

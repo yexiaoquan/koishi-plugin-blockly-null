@@ -23,20 +23,20 @@
   opacity: var(--el-scrollbar-hover-opacity, 0.5) !important;
 }
 
-.layout-container .layout-left{
+.layout-container .layout-left {
   min-width: var(--aside-width);
 }
 
-.hljs{
+.hljs {
   background-color: var(--bg2);
-  overflow-x: unset!important;
-  color:var(--fg1)
+  overflow-x: unset !important;
+  color: var(--fg1)
 }
 
-.xterm{
+.xterm {
   container-type: size;
 }
 
-.blocklyToolboxDiv{
+.blocklyToolboxDiv {
   min-width: 140px;
 }

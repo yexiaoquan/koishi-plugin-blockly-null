@@ -1,5 +1,5 @@
-import {javascriptGenerator} from "blockly/javascript";
-import {BlockSvg} from "blockly";
+import { javascriptGenerator } from "blockly/javascript";
+import { BlockSvg } from "blockly";
 
 export const HttpGetBlock = {
   "type": "http_get",
@@ -38,7 +38,7 @@ export const HttpGetBlock = {
   "helpUrl": ""
 }
 
-export function httpGetBlockGenerator(block:BlockSvg){
+export function httpGetBlockGenerator(block: BlockSvg) {
   let value_url = javascriptGenerator.valueToCode(block, 'url', javascriptGenerator.ORDER_ATOMIC);
   let response_type = block.getFieldValue('response_type');
   return [`await ctx.http.get(${value_url},{responseType:"${response_type}"})`, javascriptGenerator.ORDER_NONE];
@@ -85,7 +85,7 @@ export const HttpPostBlock = {
   "helpUrl": ""
 }
 
-export function httpPostBlockGenerator(block:BlockSvg){
+export function httpPostBlockGenerator(block: BlockSvg) {
   let value_url = javascriptGenerator.valueToCode(block, 'url', javascriptGenerator.ORDER_ATOMIC);
   let value_data = javascriptGenerator.valueToCode(block, 'data', javascriptGenerator.ORDER_ATOMIC);
   let response_type = block.getFieldValue('response_type');
@@ -107,14 +107,14 @@ export const JsonPathParseBlock = {
     }
   ],
   "inputsInline": false,
-  "imports":{'jsonpath-plus':['JSONPath as parseJson']},
+  "imports": { 'jsonpath-plus': ['JSONPath as parseJson'] },
   "output": null,
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
 }
 
-export function jsonPathBlockGenerator(block:BlockSvg){
+export function jsonPathBlockGenerator(block: BlockSvg) {
   let value_value = javascriptGenerator.valueToCode(block, 'value', javascriptGenerator.ORDER_ATOMIC);
   let text_path = block.getFieldValue('path');
   return [`await parseJson({path: "${text_path}", json: ${value_value}})`, javascriptGenerator.ORDER_NONE];
@@ -138,7 +138,7 @@ export const KeyValueWriteBlock = {
       "align": "RIGHT"
     }
   ],
-  "template":["key_value_initialize"],
+  "template": ["key_value_initialize"],
   "inputsInline": false,
   "previousStatement": null,
   "nextStatement": null,
@@ -147,11 +147,11 @@ export const KeyValueWriteBlock = {
   "helpUrl": ""
 }
 
-export function keyValueWriteBlockGenerator(block:BlockSvg){
+export function keyValueWriteBlockGenerator(block: BlockSvg) {
   let value_key = javascriptGenerator.valueToCode(block, 'key', javascriptGenerator.ORDER_ATOMIC);
   let value_value = javascriptGenerator.valueToCode(block, 'value', javascriptGenerator.ORDER_ATOMIC);
   let value_scope_id = javascriptGenerator.valueToCode(block, 'scope_id', javascriptGenerator.ORDER_ATOMIC);
-  if(value_scope_id.length){
+  if (value_scope_id.length) {
     // For backwards compatibility only, remove this in 1.x
     value_scope_id += "+\".\"+"
   }
@@ -171,7 +171,7 @@ export const KeyValueReadBlock = {
       "name": "key"
     }
   ],
-  "template":["key_value_initialize"],
+  "template": ["key_value_initialize"],
   "inputsInline": false,
   "output": null,
   "colour": 230,
@@ -179,10 +179,10 @@ export const KeyValueReadBlock = {
   "helpUrl": ""
 }
 
-export function keyValueReadBlockGenerator(block:BlockSvg){
+export function keyValueReadBlockGenerator(block: BlockSvg) {
   let value_key = javascriptGenerator.valueToCode(block, 'key', javascriptGenerator.ORDER_ATOMIC);
   let value_scope_id = javascriptGenerator.valueToCode(block, 'scope_id', javascriptGenerator.ORDER_ATOMIC);
-  if(value_scope_id.length){
+  if (value_scope_id.length) {
     // For backwards compatibility only, remove this in 1.x
     value_scope_id += "+\".\"+"
   }
@@ -199,9 +199,9 @@ export const DataBlocks = [
 ]
 
 export const dataBlockGenerators = {
-  'http_get':httpGetBlockGenerator,
-  'json_path_parse':jsonPathBlockGenerator,
-  'key_value_write':keyValueWriteBlockGenerator,
-  'key_value_read':keyValueReadBlockGenerator,
-  'http_post':httpPostBlockGenerator
+  'http_get': httpGetBlockGenerator,
+  'json_path_parse': jsonPathBlockGenerator,
+  'key_value_write': keyValueWriteBlockGenerator,
+  'key_value_read': keyValueReadBlockGenerator,
+  'http_post': httpPostBlockGenerator
 }

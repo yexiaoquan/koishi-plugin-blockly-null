@@ -1,4 +1,4 @@
-import {javascriptGenerator} from "blockly/javascript";
+import { javascriptGenerator } from "blockly/javascript";
 
 export const MiddlewareBlock = {
   "type": "middleware",
@@ -12,13 +12,13 @@ export const MiddlewareBlock = {
       "name": "callback"
     }
   ],
-  "extensions":['session_provider'],
+  "extensions": ['session_provider'],
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
 }
 
-export function middlewareBlockGenerator(block){
+export function middlewareBlockGenerator(block) {
   let statements_callback = javascriptGenerator.statementToCode(block, 'callback');
   return `ctx.middleware(async (session,next)=>{\n${statements_callback}  return next();\n})`
 }
@@ -53,7 +53,7 @@ export const OnMessageEvent = {
       "name": "listener"
     }
   ],
-  "extensions":['session_provider'],
+  "extensions": ['session_provider'],
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
@@ -89,7 +89,7 @@ export const OnGuildMemberEvent = {
       "name": "listener"
     }
   ],
-  "extensions":['session_provider'],
+  "extensions": ['session_provider'],
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
@@ -125,28 +125,28 @@ export const OnGuildEvent = {
       "name": "listener"
     }
   ],
-  "extensions":['session_provider'],
+  "extensions": ['session_provider'],
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
 }
 
-export function eventBlockGenerator(block){
+export function eventBlockGenerator(block) {
   var dropdown_event_name = block.getFieldValue('event_name')
   var statements_listener = javascriptGenerator.statementToCode(block, 'listener')
   return `ctx.on('${dropdown_event_name}',async (session)=>{\n${statements_listener}\n})`
 }
 
 export const PluginApplyBlock = {
-  "type":"plugin_apply",
-  "message0":"当启用插件时 %1 执行 %2",
-  "args0":[
+  "type": "plugin_apply",
+  "message0": "当启用插件时 %1 执行 %2",
+  "args0": [
     {
-      "type":"input_dummy"
+      "type": "input_dummy"
     },
     {
-      "type":"input_statement",
-      "name":"apply"
+      "type": "input_statement",
+      "name": "apply"
     }
   ],
   "inputsInline": false,
@@ -155,7 +155,7 @@ export const PluginApplyBlock = {
   "helpUrl": ""
 }
 
-export function pluginApplyBlockGenerator(block){
+export function pluginApplyBlockGenerator(block) {
   return javascriptGenerator.statementToCode(block, 'apply')
 }
 
@@ -176,25 +176,25 @@ export const CommandBlock = {
       "name": "action"
     }
   ],
-  "mutator":"parameter_list",
-  "extensions":['session_provider','argument_provider'],
+  "mutator": "parameter_list",
+  "extensions": ['session_provider', 'argument_provider'],
   "colour": 230,
   "tooltip": "",
   "helpUrl": ""
 };
-export function commandBlockGenerator(block){
+export function commandBlockGenerator(block) {
   let text_name = block.getFieldValue('name');
   let parameters = block.parameters ?? []
   let statements_action = javascriptGenerator.statementToCode(block, 'action');
   console.info(block.workspace.meta)
   let configure = block.workspace.meta.commands?.[text_name] ?? {}
-  let description = configure.description ? `,\`${configure.description.replace('\n','\\n')}\`` : ''
-  if(configure['description']) delete configure['description']
-  let configure_object = configure && Object.keys(configure).length>0 ? `,${JSON.stringify(configure)}` : ''
-  let command_definition = text_name + ' ' + parameters.map((parameter)=>{
-    const {required,name,type} = parameter
+  let description = configure.description ? `,\`${configure.description.replace('\n', '\\n')}\`` : ''
+  if (configure['description']) delete configure['description']
+  let configure_object = configure && Object.keys(configure).length > 0 ? `,${JSON.stringify(configure)}` : ''
+  let command_definition = text_name + ' ' + parameters.map((parameter) => {
+    const { required, name, type } = parameter
 
-    return (required?'<':'[') + name + (type!='any_parameter'?':'+type.split('_')[0]:'') + (required?'>':']')
+    return (required ? '<' : '[') + name + (type != 'any_parameter' ? ':' + type.split('_')[0] : '') + (required ? '>' : ']')
   }).join(' ')
   return `ctx.command('${command_definition.trim()}'${description}${configure_object}).action(async ({session},...args)=>{\n${statements_action}\n});\n`;
 }
@@ -209,10 +209,10 @@ export const EventBlocks = [
 ]
 
 export const eventBlockGenerators = {
-  'middleware':middlewareBlockGenerator,
-  'command':commandBlockGenerator,
-  'plugin_apply':pluginApplyBlockGenerator,
-  'on_message_event':eventBlockGenerator,
-  'on_guild_member_event':eventBlockGenerator,
-  'on_guild_event':eventBlockGenerator
+  'middleware': middlewareBlockGenerator,
+  'command': commandBlockGenerator,
+  'plugin_apply': pluginApplyBlockGenerator,
+  'on_message_event': eventBlockGenerator,
+  'on_guild_member_event': eventBlockGenerator,
+  'on_guild_event': eventBlockGenerator
 }

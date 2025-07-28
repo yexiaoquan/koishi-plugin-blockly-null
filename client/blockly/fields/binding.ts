@@ -1,5 +1,5 @@
-import {Field, FieldDropdown, MenuGenerator, MenuGeneratorFunction, MenuOption} from "blockly";
-import {ReactiveBindingSet, ReactiveValue} from "../binding";
+import { Field, FieldDropdown, MenuGenerator, MenuGeneratorFunction, MenuOption } from "blockly";
+import { ReactiveBindingSet, ReactiveValue } from "../binding";
 
 export class FieldBindingStringDropdown extends FieldDropdown {
 
@@ -65,7 +65,7 @@ export class FieldBindingStringDropdown extends FieldDropdown {
   }
 
   getOptions(opt_useCache?: boolean): MenuOption[] {
-    if(this.menuGenerator_().length==0)return []
+    if (this.menuGenerator_().length == 0) return []
     return super.getOptions(opt_useCache);
   }
 }

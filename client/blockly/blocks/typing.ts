@@ -1,8 +1,8 @@
-import {Block} from "blockly";
+import { Block } from "blockly";
 import * as Blockly from "blockly";
-import {deduplicate} from 'cosmokit'
-import {FieldBindingStringDropdown} from "../fields/binding";
-import {ReactiveValue} from "../binding";
+import { deduplicate } from 'cosmokit'
+import { FieldBindingStringDropdown } from "../fields/binding";
+import { ReactiveValue } from "../binding";
 
 export const TypeRootBlock = {
   "type": "type_root",
@@ -37,15 +37,15 @@ export const TypeDefinitionBlock = {
   "colour": "#ce4bc9",
   "tooltip": "",
   "helpUrl": "",
-  init(this:Block&Record<any,any>){
-    if(!this.workspace.typings)return
-    this.type_value = new ReactiveValue<string>(this.getFieldValue('name'),this.id)
+  init(this: Block & Record<any, any>) {
+    if (!this.workspace.typings) return
+    this.type_value = new ReactiveValue<string>(this.getFieldValue('name'), this.id)
     this.workspace.typings.add(this.type_value)
-    this.onchange = ()=>{
+    this.onchange = () => {
       this.type_value.set(this.getFieldValue('name'))
     }
     const dispose = this.dispose
-    this.dispose = (h)=>{
+    this.dispose = (h) => {
       this.workspace.typings.delete(this.type_value)
       dispose.bind(this)(h)
     }
@@ -115,7 +115,7 @@ export const TypeUnionRootBlock = {
       "name": "types",
       "check": "Type"
     }
-    ]
+  ]
 }
 
 export const TypeUnionEntityBlock = {
@@ -130,11 +130,11 @@ export const TypeUnionBlock = {
   "type": "type_union",
   "output": "Type",
   "message0": "联合类型",
-  "args0":[],
-  init(){
+  "args0": [],
+  init() {
     this.updateShape_()
   },
-  "mutator":"union_mutator",
+  "mutator": "union_mutator",
   "colour": "#ce4bc9",
 }
 
@@ -162,7 +162,7 @@ export const TypeObjectEntityBlock = {
       "name": "name",
       "text": "属性名称"
     }
-    ],
+  ],
   "previousStatement": "Type",
   "nextStatement": "Type",
   "colour": 160
@@ -175,7 +175,7 @@ export const TypeObjectBlock = {
   "colour": "#ce4bc9",
   "tooltip": "",
   "helpUrl": "",
-  "mutator":"object_mutator"
+  "mutator": "object_mutator"
 }
 
 export const TypeGetter = {
@@ -185,9 +185,9 @@ export const TypeGetter = {
   "colour": "#ce4bc9",
   "tooltip": "",
   "helpUrl": "",
-  init(this:Block){
+  init(this: Block) {
     let field
-    if(this.workspace.typings) {
+    if (this.workspace.typings) {
       field = new FieldBindingStringDropdown(this.workspace.typings)
       this.inputList[0].appendField(field, "type")
     }
