@@ -551,6 +551,7 @@
     <block type="null"/>
     <block type="null1"/>
     <block type="null2"/>
+    <block type="null3"/>
     <block type="import"/>
     <block type="export_const"/>
   </category>

@@ -73,14 +73,45 @@ export function blockly_null2BlockGenerator(block) {
   return [code, javascriptGenerator.ORDER_NONE];
 };
 
+export const blockly_null3 = {
+
+  "type": "null3",
+  "message0": "%1 %2",
+  "args0": [
+    {
+      "type": "field_multilinetext",
+      "name": "NAME",
+      "text": "空白"
+    },
+    {
+      "type": "input_value",
+      "name": "PARAM"
+    }
+  ],
+  "output": null,
+  "colour": 230,
+  "tooltip": "带参数输入的空白块",
+  "helpUrl": ""
+
+}
+
+export function blockly_null3BlockGenerator(block) {
+  let text_name = block.getFieldValue('NAME');
+  let value_param = javascriptGenerator.valueToCode(block, 'PARAM', javascriptGenerator.ORDER_ATOMIC);
+  let code = `${text_name}(${value_param})`;
+  return [code, javascriptGenerator.ORDER_NONE];
+};
+
 export const nullBlocks = [
   blockly_null,
   blockly_null1,
-  blockly_null2
+  blockly_null2,
+  blockly_null3
 ]
 
 export const nullBlockGenerators = {
   'null': blockly_nullBlockGenerator,
   'null1': blockly_null1BlockGenerator,
-  'null2': blockly_null2BlockGenerator
+  'null2': blockly_null2BlockGenerator,
+  'null3': blockly_null3BlockGenerator
 }

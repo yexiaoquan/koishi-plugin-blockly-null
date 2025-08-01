@@ -5,7 +5,7 @@
       style="width: 100%;padding: 5px;height:25px;border-bottom: 1px solid var(--bg1);display: flex;flex-direction: row-reverse;">
       <button class="menu-button" @click="$emit('update:workspace', 'meta')">编辑插件元数据</button>
     </div>
-    <div style="height: 100%;flex:auto" ref="blockly_workspace"></div>
+    <div style="height: 100%;flex:auto" ref="blockly_workspace" @mouseleave="handleMouseLeave"></div>
   </div>
 </template>
 
@@ -58,6 +58,21 @@ let workspace: Blockly.WorkspaceSvg = null;
 let listeners = { autoSave: () => { } }
 
 Blockly.VerticalFlyout.prototype.getFlyoutScale = () => 1;
+
+// 处理鼠标离开工作区事件
+const handleMouseLeave = () => {
+  if (workspace) {
+    // 强制关闭所有文本编辑器
+    try {
+      // 强制关闭编辑器
+      if (Blockly.WidgetDiv && Blockly.WidgetDiv.isVisible()) {
+        Blockly.WidgetDiv.hide();
+      }
+    } catch (error) {
+      console.warn('Error closing text editor:', error);
+    }
+  }
+};
 
 onMounted(() => {
   nextTick(() => {
