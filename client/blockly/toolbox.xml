@@ -375,6 +375,7 @@
     <category name="会话" colour="#5b80a5">
       <block type="get_argument"/>
       <block type="session_message"/>
+      <block type="session_stripped_content"/>
       <block type="session_message_id"/>
       <block type="session_user_id"/>
       <block type="session_guild_id"/>

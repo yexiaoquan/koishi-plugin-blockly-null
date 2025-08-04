@@ -135,6 +135,20 @@ export function sessionElementsBlockGenerator() {
   return [`session.elements`, javascriptGenerator.ORDER_NONE];
 }
 
+export const SessionStrippedContentBlock = {
+  "type": "session_stripped_content",
+  "message0": "发送消息的内容(移除at前缀)",
+  "extensions": ['session_consumer'],
+  "output": "String",
+  "colour": 230,
+  "tooltip": "",
+  "helpUrl": ""
+}
+
+export function sessionStrippedContentBlockGenerator() {
+  return [`session.stripped.content`, javascriptGenerator.ORDER_NONE];
+}
+
 export const SessionBlocks = [
   GetArgumentBlock,
   BreakMiddlewareBlock,
@@ -145,6 +159,7 @@ export const SessionBlocks = [
   SessionMessageIdBlock,
   SessionBotBlock,
   SessionElementsBlock,
+  SessionStrippedContentBlock,
 ]
 
 export const sessionBlockGenerators = {
@@ -157,4 +172,5 @@ export const sessionBlockGenerators = {
   'session_message_id': sessionMessageIdBlockGenerator,
   'session_bot': sessionBotBlockGenerator,
   'session_elements': sessionElementsBlockGenerator,
+  'session_stripped_content': sessionStrippedContentBlockGenerator,
 }
